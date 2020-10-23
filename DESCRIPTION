@@ -1,0 +1,15 @@
+Package: PooledCohort
+Title: Computes predicted risk for atherosclerotic cardiovascular disease.
+Version: 0.0.0.9000
+Authors@R: 
+    c(person(given = "Byron",
+             family = "Jaeger",
+             role = c("aut", "cre"),
+             email = "bcjaeger@uab.edu",
+             comment = c(ORCID = "0000-0001-7399-2299")))
+Description: What the package does (one paragraph).
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
