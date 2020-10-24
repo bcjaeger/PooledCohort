@@ -1,0 +1,5 @@
+reference:
+- title: Pooled cohort risk prediction equations
+  desc:  Compute 10-year predicted risk for first atherosclerotic cardiovascular disease.
+- contents:
+  - starts_with("pcr_ascvd_")
