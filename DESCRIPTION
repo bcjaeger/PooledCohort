@@ -16,3 +16,5 @@ RoxygenNote: 7.1.1
 Suggests: 
     testthat,
     covr
+URL: https://github.com/bcjaeger/PooledCohort
+BugReports: https://github.com/bcjaeger/PooledCohort/issues
