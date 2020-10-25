@@ -3,9 +3,20 @@
 
 #' 10-year ASCVD Risk Calculator
 #'
-#' This function implements the Pooled Cohort Risk equations from
-#'  Goff et al, 2013. These equations predict 10-year risk of a
-#'  first ASCVD event (atherosclerotic cardiovascular disease).
+#' This function implements
+#'
+#' - the Pooled Cohort Risk equations from Goff et al, 2013.
+#'
+#' - the updated Pooled Cohort Risk equations from Yadlowski et al, 2018
+#'
+#' These equations predict 10-year risk of a first atherosclerotic
+#'  cardiovascular disease (ASCVD) event, such as a stroke or myocardial
+#'  infarction. The 2017 American College of Cardiology and American Heart
+#'  Association blood pressure guideline recommends using 10-year predicted
+#'  atherosclerotic cardiovascular disease risk to guide the decision to
+#'  initiate or intensify antihypertensive medication. The guideline recommends
+#'  using the Pooled Cohort risk prediction equations to predict 10-year
+#'  atherosclerotic cardiovascular disease risk in clinical practice.
 #'
 #' @param age_years numeric vector of age values, in years.
 #'
@@ -34,16 +45,73 @@
 #'   should include only 'no' and 'yes'. For example, if diabetes is present,
 #'   the value should be 'yes'.
 #'
+#' @param race_levels a list of length 2 with names 'black' and 'white'.
+#'   values in the list should be character vectors of any length, and
+#'   values in the character vectors should indicate what values in
+#'   `race` belong to the 'black' and 'white' categories. For example,
+#'   `race` may contain values of 'african_american', 'white', and
+#'   'hispanic'. In this case, `race_levels` should be
+#'   `list(white = c('white', 'hispanic'), black = 'african_american')`.
+#'
+#' @param sex_levels a list of length 2 with names 'female' and 'male'.
+#'   values in the list should be character vectors of any length, and
+#'   values in the character vectors should indicate what values in
+#'   `sex` belong to the 'female' and 'male' categories (see examples).
+#'
+#' @param smoke_current_levels a list of length 2 with names 'no' and 'yes'.
+#'   values in the list should be character vectors of any length, and
+#'   values in the character vectors should indicate what values in
+#'   `smoke_current` belong to the 'no' and 'yes' categories (see examples).
+#'
+#' @param bp_meds_levels a list of length 2 with names 'no' and 'yes'.
+#'   values in the list should be character vectors of any length, and
+#'   values in the character vectors should indicate what values in
+#'   `bp_meds` belong to the 'no' and 'yes' categories (see examples).
+#'
+#' @param diabetes_levels a list of length 2 with names 'no' and 'yes'.
+#'   values in the list should be character vectors of any length, and
+#'   values in the character vectors should indicate what values in
+#'   `diabetes` belong to the 'no' and 'yes' categories (see examples).
+#'
+#' @param equation_version a character value of length 1. Valid options
+#'   are 'Goff_2013' and 'Yadlowsky_2018'. If 'Goff_2013' (the default
+#'   option) is selected, the original Pooled Cohort risk equations are
+#'   used (See Goff et al., 2013). If 'Yadlowsky_2018' is selected, the
+#'   equations recommended by Yadlowsky et al., 2018 are used.
+#'
+#' @param override_boundary_errors a logical vector of length 1. If `FALSE`
+#'   (the default), then `predict_10yr_ascvd_risk()` will throw hard errors
+#'   if you give it continuous input values that are outside the bounaries
+#'   of what the Pooled Cohort risk calculator recommends. If `TRUE`, errors
+#'   will not be thrown. Please use with caution.
+#'
+#'
 #' @return a numeric vector with 10-year predicted risk values for ASCVD events.
 #'
 #' @export
+#'
+#' @details The 2017 American College of Cardiology (ACC) / American Heart
+#'   Association (AHA) blood pressure (BP) guideline recommends using 10-year
+#'   predicted atherosclerotic cardiovascular disease (ASCVD) risk to guide
+#'   the decision to initiate antihypertensive medication. The guideline
+#'   recommends using the Pooled Cohort risk prediction equations (Goff et al, 2013)
+#'   to predict 10-year ASCVD risk. The Pooled Cohort risk prediction equations
+#'   have been externally validated in several studies and, in some populations,
+#'   are known to overestimate 10-year ASCVD risk. In 2018, an updated set of
+#'   equations were developed by Yadlowsky et al. using more contemporary data
+#'   and statistical methods.
 #'
 #' @references Goff DC, Lloyd-Jones DM, Bennett G, Coady S, D’agostino RB,
 #'   Gibbons R, Greenland P, Lackland DT, Levy D, O’donnell CJ, Robinson JG.
 #'   2013 ACC/AHA guideline on the assessment of cardiovascular risk: a report
 #'   of the American College of Cardiology/American Heart Association Task
-#'   Force on Practice Guidelines. Journal of the American College of Cardiology.
+#'   Force on Practice Guidelines. *Journal of the American College of Cardiology*.
 #'   2014 Jul 1;63(25 Part B):2935-59. DOI: 10.1016/j.jacc.2014.03.006
+#'
+#'   Yadlowsky S, Hayward RA, Sussman JB, McClelland RL, Min YI, Basu S.
+#'   Clinical implications of revised pooled cohort equations for estimating
+#'   atherosclerotic cardiovascular disease risk. *Annals of internal medicine*.
+#'   2018 Jul 3;169(1):20-9.
 #'
 #' @examples
 #'
@@ -55,7 +123,7 @@
 #' age_years = rep(55, times = 4)
 #' # total cholesterol 213 mg/dL
 #' chol_total_mgdl = rep(213, times = 4)
-#' # HDL–C 50 mg/dL
+#' # HDL cholesterol 50 mg/dL
 #' chol_hdl_mgdl = rep(50, times = 4)
 #' # untreated systolic BP 120 mm Hg
 #' bp_sys_mmhg = rep(120, times = 4)
@@ -65,7 +133,7 @@
 #' # without diabetes
 #' diabetes = rep('no', times = 4)
 #'
-#' pcr_probs <- pcr_ascvd_2013(
+#' pcr_probs <- predict_10yr_ascvd_risk(
 #'   sex = sex,
 #'   race = race,
 #'   age_years = age_years,
@@ -80,11 +148,52 @@
 #' # note that this isn't an exact match of Table 4 in
 #' # Goff et al supplement - this is because the table's
 #' # coefficients are rounded to a lower decimal count than
-#' # the coefficients used in pcr_ascvd_2013()
+#' # the coefficients used in predict_10yr_ascvd_risk()
 #' round(100 * pcr_probs, 1)
 #'
+#' # using a data frame with more granular categories and names
 #'
-pcr_ascvd_2013 <- function(
+#' some_data <- data.frame(
+#'   gender = c('woman', 'woman', 'man', 'male'),
+#'   race_3cats = c('AA', 'white', 'AA', 'other'),
+#'   # 55 years of age
+#'   age_years = rep(55, times = 4),
+#'   # total cholesterol 213 mg/dL
+#'   chol_total_mgdl = rep(213, times = 4),
+#'   # HDL cholesterol 50 mg/dL
+#'   chol_hdl_mgdl = rep(50, times = 4),
+#'   # untreated systolic BP 120 mm Hg
+#'   bp_sys_mmhg = rep(120, times = 4),
+#'   bp_meds = rep('No', times = 4),
+#'   # nonsmoker
+#'   smoke_current = c("no", "former", "no", "never"),
+#'   # without diabetes
+#'   diabetes = rep('No', times = 4),
+#'   stringsAsFactors = FALSE
+#' )
+#'
+#' pcr_probs <- with(
+#'   some_data,
+#'   predict_10yr_ascvd_risk(
+#'     sex = gender,
+#'     sex_levels = list(female = 'woman', male = c('man', 'male')),
+#'     race = race_3cats,
+#'     age_years = age_years,
+#'     chol_total_mgdl = chol_total_mgdl,
+#'     chol_hdl_mgdl = chol_hdl_mgdl,
+#'     bp_sys_mmhg = bp_sys_mmhg,
+#'     bp_meds = bp_meds,
+#'     smoke_current = smoke_current,
+#'     diabetes = diabetes,
+#'     race_levels = list(black = 'AA', white = c('white', 'other')),
+#'     smoke_current_levels = list(no = c('no', 'former', 'never'), yes = 'Yes'),
+#'     bp_meds_levels = list(no = 'No', yes = 'Yes'),
+#'     diabetes_levels = list(no = 'No', yes = 'Yes')
+#'   )
+#' )
+#'
+
+predict_10yr_ascvd_risk <- function(
   age_years,
   race,
   sex,
@@ -94,6 +203,8 @@ pcr_ascvd_2013 <- function(
   bp_sys_mmhg,
   bp_meds,
   diabetes,
+  equation_version = 'Goff_2013',
+  override_boundary_errors = FALSE,
   race_levels = list(black = 'black', white = 'white'),
   sex_levels = list(female = 'female', male = 'male'),
   smoke_current_levels = list(no = 'no', yes = 'yes'),
@@ -101,53 +212,144 @@ pcr_ascvd_2013 <- function(
   diabetes_levels = list(no = 'no', yes = 'yes')
 ) {
 
+  check_input(
+    arg_name = 'equation_version',
+    arg_value = equation_version,
+    expected = list(
+      type = 'character',
+      length = 1,
+      options = c("Goff_2013", "Yadlowsky_2018"))
+  )
+
+  check_input(
+    arg_name = 'override_boundary_errors',
+    arg_value = override_boundary_errors,
+    expected = list(
+      type = 'logical',
+      length = 1
+    )
+  )
+
+  ._pcr_10yr(
+    age_years = age_years,
+    race = race,
+    sex = sex,
+    smoke_current = smoke_current,
+    chol_total_mgdl = chol_total_mgdl,
+    chol_hdl_mgdl = chol_hdl_mgdl,
+    bp_sys_mmhg = bp_sys_mmhg,
+    bp_meds = bp_meds,
+    diabetes = diabetes,
+    equation_version = equation_version,
+    override_boundary_errors = override_boundary_errors,
+    race_levels = race_levels,
+    sex_levels = sex_levels,
+    smoke_current_levels = smoke_current_levels,
+    bp_meds_levels = bp_meds_levels,
+    diabetes_levels = diabetes_levels
+  )
+
+}
+
+._pcr_10yr <- function(
+  age_years,
+  race,
+  sex,
+  smoke_current,
+  chol_total_mgdl,
+  chol_hdl_mgdl,
+  bp_sys_mmhg,
+  bp_meds,
+  diabetes,
+  equation_version,
+  override_boundary_errors,
+  race_levels,
+  sex_levels,
+  smoke_current_levels,
+  bp_meds_levels,
+  diabetes_levels
+) {
+
+  # coerce categorical data to character values ----
+
+  race = as.character(race)
+  sex = as.character(sex)
+  smoke_current = as.character(smoke_current)
+  bp_meds = as.character(bp_meds)
+  diabetes = as.character(diabetes)
+
   # argument checking ----
 
   check_call(
     match.call(),
     expected = list(
       'age_years' = list(
-        type = 'double',
+        type = 'numeric',
         length = NULL,
-        lwr = 40,
-        upr = 80
+        lwr = ifelse(override_boundary_errors, yes = -Inf, no = 40),
+        upr = ifelse(override_boundary_errors, yes = Inf,  no = 80)
       ),
       'race' = list(
         type = 'character',
         length = NULL,
-        options = unlist(race_levels)
+        options = race_levels
       ),
       'sex' = list(
         type = 'character',
         length = NULL,
-        options = unlist(sex_levels)
+        options = sex_levels
       ),
       'smoke_current' = list(
         type = 'character',
         length = NULL,
-        options = unlist(smoke_current_levels)
+        options = smoke_current_levels
       ),
       'chol_total_mgdl' = list(
-        type = 'double',
+        type = 'numeric',
         length = NULL,
-        lwr = 130,
-        upr = 320
+        lwr = ifelse(override_boundary_errors, yes = -Inf, no = 130),
+        upr = ifelse(override_boundary_errors, yes = Inf,  no = 320)
       ),
       'bp_sys_mmhg' = list(
-        type = 'double',
+        type = 'numeric',
         length = NULL,
-        lwr = 90,
-        upr = 200
+        lwr = ifelse(override_boundary_errors, yes = -Inf, no = 90),
+        upr = ifelse(override_boundary_errors, yes = Inf,  no = 200)
       ),
       'bp_meds' = list(
         type = 'character',
         length = NULL,
-        options = unlist(bp_meds_levels)
+        options = bp_meds_levels
       ),
       'diabetes' = list(
         type = 'character',
         length = NULL,
-        options = unlist(diabetes_levels)
+        options = diabetes_levels
+      ),
+      'race_levels' = list(
+        type = 'list',
+        length = 2,
+        names = c('black', 'white')
+      ),
+      'sex_levels' = list(
+        type = 'list',
+        length = 2,
+        names = c('female', 'male')
+      ),
+      'smoke_current_levels' = list(
+        type = 'list',
+        length = 2,
+        names = c('no', 'yes')
+      ),
+      'bp_meds_levels' = list(
+        type = 'list',
+        length = 2,
+        names = c('no', 'yes')
+      ),
+      'diabetes_levels' = list(
+        type = 'list',
+        length = 2,
+        names = c('no', 'yes')
       )
     )
   )
@@ -164,73 +366,99 @@ pcr_ascvd_2013 <- function(
     diabetes = diabetes
   )
 
-  check_input(arg_name = 'race_levels',
-              arg_value = race_levels,
-              expected = list(type = 'list',
-                              length = 2,
-                              names = c('black', 'white')))
+  check_nas(
+    age_years = age_years,
+    race = race,
+    sex = sex,
+    smoke_current = smoke_current,
+    chol_total_mgdl = chol_total_mgdl,
+    chol_hdl_mgdl = chol_hdl_mgdl,
+    bp_sys_mmhg = bp_sys_mmhg,
+    bp_meds = bp_meds,
+    diabetes = diabetes
+  )
 
-  check_input(arg_name = 'sex_levels',
-              arg_value = sex_levels,
-              expected = list(type = 'list',
-                              length = 2,
-                              names = c('female', 'male')))
+  # recoding categorical data ----
 
-  check_input(arg_name = 'smoke_current_levels',
-              arg_value = smoke_current_levels,
-              expected = list(type = 'list',
-                              length = 2,
-                              names = c('no', 'yes')))
+  race_recode <- race
+  race_recode[race %in% race_levels$black] <- 'black'
+  race_recode[race %in% race_levels$white] <- 'white'
 
-  check_input(arg_name = 'bp_meds_levels',
-              arg_value = bp_meds_levels,
-              expected = list(type = 'list',
-                              length = 2,
-                              names = c('no', 'yes')))
+  sex_recode <- sex
+  sex_recode[sex %in% sex_levels$female] <- 'female'
+  sex_recode[sex %in% sex_levels$male] <- 'male'
 
-  check_input(arg_name = 'diabetes_levels',
-              arg_value = diabetes_levels,
-              expected = list(type = 'list',
-                              length = 2,
-                              names = c('no', 'yes')))
+  bp_meds_recode <-
+    as.numeric(tolower(bp_meds) %in% tolower(bp_meds_levels$yes))
+
+  bp_meds_recode[is.na(bp_meds)] <- NA_integer_
+
+  smoke_current_recode <-
+    as.numeric(tolower(smoke_current) %in% tolower(smoke_current_levels$yes))
+
+  smoke_current_recode[is.na(smoke_current)] <- NA_integer_
+
+  diabetes_recode <-
+    as.numeric(tolower(diabetes) %in% tolower(diabetes_levels$yes))
+
+  diabetes_recode[is.na(diabetes)] <- NA_integer_
+
+  ._pcr_fun <- switch(equation_version,
+                      'Goff_2013' = ._pcr_Goff_2013,
+                      'Yadlowsky_2018' = ._pcr_Yadlowsky_2013)
+
+  ._pcr_fun(
+    age_years = age_years,
+    race = race_recode,
+    sex = sex_recode,
+    smoke_current = smoke_current_recode,
+    chol_total_mgdl = chol_total_mgdl,
+    chol_hdl_mgdl = chol_hdl_mgdl,
+    bp_sys_mmhg = bp_sys_mmhg,
+    bp_meds = bp_meds_recode,
+    diabetes = diabetes_recode
+  )
+
+}
+
+._pcr_Goff_2013 <- function(age_years,
+                            race,
+                            sex,
+                            smoke_current,
+                            chol_total_mgdl,
+                            chol_hdl_mgdl,
+                            bp_sys_mmhg,
+                            bp_meds,
+                            diabetes){
 
   # transforming data for input into PCR equations ----
   ln_age        <- log(age_years)
   ln_chol_total <- log(chol_total_mgdl)
   ln_chol_hdl   <- log(chol_hdl_mgdl)
   ln_sbp        <- log(bp_sys_mmhg)
-  bp_treated    <- as.numeric(tolower(bp_meds) %in% tolower(bp_meds_levels$yes))
-  bp_untreated  <- as.numeric(tolower(bp_meds) %in% tolower(bp_meds_levels$no))
-  smoke_current <- as.numeric(tolower(smoke_current) %in% tolower(smoke_current_levels$yes))
-  diabetes      <- as.numeric(tolower(diabetes) %in% tolower(diabetes_levels$yes))
-
-  race_recode <- race
-  race_recode[tolower(race) %in% tolower(race_levels$black)] <- 'black'
-  race_recode[tolower(race) %in% tolower(race_levels$white)] <- 'white'
-
-  sex_recode <- sex
-  sex_recode[tolower(sex) %in% tolower(sex_levels$female)] <- 'female'
-  sex_recode[tolower(sex) %in% tolower(sex_levels$male)] <- 'male'
 
   # internal data for computation of individual sums ----
 
   ._data <- data.frame(
-    race = race_recode,
-    sex = sex_recode,
+    race = race,
+    sex = sex,
     ln_age = ln_age,
     ln_age_squared = ln_age^2,
     ln_chol_total = ln_chol_total,
     ln_age_x_ln_chol_total = ln_age * ln_chol_total,
     ln_chol_hdl = ln_chol_hdl,
     ln_age_x_ln_chol_hdl = ln_age * ln_chol_hdl,
-    ln_treated_sbp = ln_sbp * bp_treated,
-    ln_untreated_sbp = ln_sbp * bp_untreated,
-    ln_age_x_ln_treated_sbp = ln_age * ln_sbp * bp_treated,
-    ln_age_x_ln_untreated_sbp = ln_age * ln_sbp * bp_untreated,
+    ln_treated_sbp = ln_sbp * bp_meds,
+    ln_untreated_sbp = ln_sbp * (bp_meds == 0),
+    ln_age_x_ln_treated_sbp = ln_age * ln_sbp * bp_meds,
+    ln_age_x_ln_untreated_sbp = ln_age * ln_sbp * (bp_meds == 0),
     smoker = smoke_current,
     ln_age_x_smoker = ln_age * smoke_current,
-    diabetes = diabetes
+    diabetes = diabetes,
+    stringsAsFactors = FALSE
   )
+
+  ._data$._ID <- seq_len(nrow(._data))
 
   # model coefficients ----
 
@@ -254,7 +482,8 @@ pcr_ascvd_2013 <- function(
     coef_ln_age_x_ln_untreated_sbp = c(-6.0873 , 0       , 0      , 0),
     coef_smoker                    = c(0.6908  , 7.574   , 0.549  , 7.837),
     coef_ln_age_x_smoker           = c(0       , -1.665  , 0      , -1.795),
-    coef_diabetes                  = c(0.8738  , 0.661   , 0.645  , 0.658)
+    coef_diabetes                  = c(0.8738  , 0.661   , 0.645  , 0.658),
+    stringsAsFactors = FALSE
   )
 
   # risk computation ----
@@ -285,16 +514,23 @@ pcr_ascvd_2013 <- function(
 
   # compute risk using individuals' sum of terms ----
 
-  with(._data, 1 - base_surv^exp(ind_sum - coef_mean))
+  output <- with(._data, 1 - base_surv^exp(ind_sum - coef_mean))
+
+  # merge() does not maintain order, so re-order here
+  output[order(._data$._ID)]
+
 
 }
 
-
-#' @rdname pcr_ascvd_2013
-#' @export
-pcr_ascvd_2018 <- function(age_years, race, sex, smoke_current,
-                                chol_total_mgdl, chol_hdl_mgdl, bp_sys_mmhg,
-                                bp_meds, diabetes) {
+._pcr_Yadlowsky_2013 <- function(age_years,
+                       race,
+                       sex,
+                       smoke_current,
+                       chol_total_mgdl,
+                       chol_hdl_mgdl,
+                       bp_sys_mmhg,
+                       bp_meds,
+                       diabetes) {
 
   sex_coefs <- data.frame(
     sex = c('female', 'male'),
@@ -316,14 +552,12 @@ pcr_ascvd_2018 <- function(age_years, race, sex, smoke_current,
     coef_black_x_smoke_current = c(-0.092231,  -0.226771),
     coef_black_x_chol_ratio    = c( 0.070498,  -0.117749),
     coef_black_x_sbp_x_bp_meds = c(-0.000173,   0.004190),
-    coef_black_x_sbp_x_age     = c(-0.000094,  -0.000199)
+    coef_black_x_sbp_x_age     = c(-0.000094,  -0.000199),
+    stringsAsFactors = FALSE
   )
 
   # transforming data for input into PCR equations
-  black    <- as.numeric(race == 'black')
-  bp_meds  <- as.numeric(bp_meds == 'yes')
-  diabetes <- as.numeric(diabetes == 'yes')
-  smoke_current <- as.numeric(smoke_current == 'yes')
+  black <- as.numeric(race == 'black')
 
   ._data <- data.frame(
     sex = sex,
@@ -344,8 +578,11 @@ pcr_ascvd_2018 <- function(age_years, race, sex, smoke_current,
     black_x_smoke_current = black * smoke_current,
     black_x_chol_ratio = black * chol_total_mgdl / chol_hdl_mgdl,
     black_x_sbp_x_bp_meds = black * bp_sys_mmhg * bp_meds,
-    black_x_sbp_x_age = black * bp_sys_mmhg * age_years
+    black_x_sbp_x_age = black * bp_sys_mmhg * age_years,
+    stringsAsFactors = FALSE
   )
+
+  ._data$._ID <- seq_len(nrow(._data))
 
   ._data <- merge(x = ._data,
                   y = sex_coefs,
@@ -377,10 +614,11 @@ pcr_ascvd_2018 <- function(age_years, race, sex, smoke_current,
       coef_black_x_sbp_x_age * black_x_sbp_x_age
   )
 
-  round(
-    with(._data, 1 / (1 + exp(-ind_sum))),
-    digits = 4L
-  )
+  output <- with(._data, 1 / (1 + exp(-ind_sum)))
+
+  # merge() does not maintain order, so re-order here
+  output[order(._data$._ID)]
+
 
 }
 

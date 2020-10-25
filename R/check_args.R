@@ -81,8 +81,10 @@ check_arg_length <- function(arg_value, arg_name, expected_length){
 check_arg_bounds <- function(arg_value, arg_name, bound_lwr, bound_upr){
 
   arg_value <- arg_value[!is.na(arg_value)]
-  if(!is.null(bound_lwr)) check_bound_lwr(min(arg_value), arg_name, bound_lwr)
-  if(!is.null(bound_upr)) check_bound_upr(max(arg_value), arg_name, bound_upr)
+  if(!is.null(bound_lwr))
+    check_bound_lwr(min(c(arg_value, Inf)), arg_name, bound_lwr)
+  if(!is.null(bound_upr))
+    check_bound_upr(max(c(arg_value, -Inf)), arg_name, bound_upr)
 
 }
 
@@ -106,13 +108,15 @@ check_bound_upr <- function(arg_value, arg_name, bound_upr) {
 
 check_arg_is_valid <- function(arg_value, arg_name, valid_options) {
 
-  valid_arg <- all(arg_value %in% valid_options)
+  valid_arg <- all(stats::na.omit(arg_value) %in% unlist(valid_options))
 
   if (!valid_arg) {
 
-    expected_values <- glue::glue_collapse(x = valid_options,
-                                           sep = ', ',
-                                           last = ' or ')
+    expected_values <- glue::glue_collapse(
+      x = valid_options,
+      sep = ', ',
+      last = ' or '
+    )
 
     arg_values <- glue::glue_collapse(x = unique(arg_value),
                                       sep = ', ',
@@ -267,54 +271,6 @@ check_call <- function(call, expected){
 
 }
 
-check_dots_are_characters <- function(.dots){
-
-  .dots_are_chars <- sapply(eval(.dots), is.character)
-
-  if(!all(.dots_are_chars)){
-
-    wrong_types <- which(!.dots_are_chars) + 1
-
-    wrong_objects <- vector(mode = 'character', length = length(wrong_types))
-
-
-    for(i in seq_along(wrong_types)){
-      wrong_objects[i] <- paste0("<",deparse(.dots[[wrong_types[i]]]),">")
-    }
-
-    if(length(wrong_types) == 1) {
-      was_or_were <- 'was'
-      this_or_these <- 'this'
-      obj <- 'object'
-      nm <- 'name'
-    } else {
-      was_or_were <- 'were'
-      this_or_these <- 'these'
-      obj <- 'objects'
-      nm <- 'names'
-    }
-
-    wrong_objects <- glue::glue_collapse(wrong_objects,
-                                         sep = ', ',
-                                         last = ' and ')
-
-
-    message <- glue::glue(
-      "non-character {obj} {wrong_objects} ",
-      "{was_or_were} included in ...\n",
-      "Did you forget to specify the input ",
-      "{nm} for {this_or_these} {obj}?"
-    )
-
-    stop(message, call. = FALSE)
-
-  }
-
-  invisible()
-
-}
-
-
 check_equal_lengths <- function(...){
 
   length_vals <- vapply(
@@ -328,7 +284,7 @@ check_equal_lengths <- function(...){
   if(length_mismatch){
 
     report = glue::glue(
-      '< {names(length_vals)} > has length < {length_vals} >'
+      '{names(length_vals)} has length {length_vals}'
     )
 
     stop(
@@ -337,7 +293,46 @@ check_equal_lengths <- function(...){
       call. = FALSE
     )
 
-    invisible()
+  }
+
+}
+
+check_nas <- function(...){
+
+  na_vals <- vapply(
+    X = list(...),
+    FUN = function(x) sum(is.na(x)),
+    FUN.VALUE = vector(mode = 'integer', length = 1)
+  )
+
+
+  total_miss <- diff(
+    x = c(
+      nrow(stats::na.omit(as.data.frame(list(...)))),
+      nrow(               as.data.frame(list(...)))
+    )
+  )
+
+  any_missing <- any(na_vals > 0)
+
+  if(any_missing){
+
+    na_vals <- na_vals[na_vals > 0]
+
+    report = glue::glue(
+      '{names(na_vals)} has {na_vals} missing values'
+    )
+
+    report <- c(report,
+                glue::glue('These missing values account for {total_miss}',
+                           'missing values in the output',
+                           .sep = ' '))
+
+    warning(
+      "Input data have missing values:\n",
+      glue::glue_collapse(report, sep = '\n'),
+      call. = FALSE
+    )
 
   }
 
