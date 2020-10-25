@@ -96,8 +96,6 @@ a numeric vector with 10-year predicted risk values for ASCVD events.
 }
 \description{
 This function implements
-}
-\details{
 \itemize{
 \item the Pooled Cohort Risk equations from Goff et al, 2013.
 \item the updated Pooled Cohort Risk equations from Yadlowski et al, 2018
@@ -111,7 +109,8 @@ atherosclerotic cardiovascular disease risk to guide the decision to
 initiate or intensify antihypertensive medication. The guideline recommends
 using the Pooled Cohort risk prediction equations to predict 10-year
 atherosclerotic cardiovascular disease risk in clinical practice.
-
+}
+\details{
 The 2017 American College of Cardiology (ACC) / American Heart
 Association (AHA) blood pressure (BP) guideline recommends using 10-year
 predicted atherosclerotic cardiovascular disease (ASCVD) risk to guide
@@ -214,5 +213,5 @@ Force on Practice Guidelines. \emph{Journal of the American College of Cardiolog
 Yadlowsky S, Hayward RA, Sussman JB, McClelland RL, Min YI, Basu S.
 Clinical implications of revised pooled cohort equations for estimating
 atherosclerotic cardiovascular disease risk. \emph{Annals of internal medicine}.
-2018 Jul 3;169(1):20-9.
+2018 Jul 3;169(1):20-9. DOI: 10.7326/M17-3011
 }

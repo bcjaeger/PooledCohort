@@ -3,7 +3,7 @@
 
 #' 10-year ASCVD Risk Calculator
 #'
-#' This function implements
+#' @description This function implements
 #'
 #' - the Pooled Cohort Risk equations from Goff et al, 2013.
 #'
@@ -111,7 +111,7 @@
 #'   Yadlowsky S, Hayward RA, Sussman JB, McClelland RL, Min YI, Basu S.
 #'   Clinical implications of revised pooled cohort equations for estimating
 #'   atherosclerotic cardiovascular disease risk. *Annals of internal medicine*.
-#'   2018 Jul 3;169(1):20-9.
+#'   2018 Jul 3;169(1):20-9. DOI: 10.7326/M17-3011
 #'
 #' @examples
 #'
