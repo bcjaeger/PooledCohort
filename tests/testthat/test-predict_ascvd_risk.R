@@ -712,6 +712,239 @@ test_that(
 )
 
 test_that(
+  desc = "Replicate examples from Khan supplemental table S12",
+  code = {
+
+    prevent_base_10 <- predict_10yr_ascvd_risk(
+        sex = c("female", "male"),
+        age_years = c(50, 50),
+        chol_total_mgdl = c(200, 200),
+        chol_hdl_mgdl = c(45, 45),
+        bp_sys_mmhg = c(160, 160),
+        diabetes = c("yes", "yes"),
+        smoke_current = c("no", "no"),
+        bmi = c(35, 35),
+        egfr_mlminm2 = c(90, 90),
+        bp_meds = c("yes", "yes"),
+        statin_meds = c("no", "no"),
+        equation_version = "Khan_2023",
+        prevent_type = 'base'
+      )
+
+    expect_equal( round(prevent_base_10, 4), c(0.092, 0.1019) )
+
+    prevent_acr_10 <- predict_10yr_ascvd_risk(
+      sex = c("female", "male"),
+      age_years = c(50, 50),
+      chol_total_mgdl = c(200, 200),
+      chol_hdl_mgdl = c(45, 45),
+      bp_sys_mmhg = c(160, 160),
+      diabetes = c("yes", "yes"),
+      smoke_current = c("no", "no"),
+      bmi = c(35, 35),
+      egfr_mlminm2 = c(90, 90),
+      bp_meds = c("yes", "yes"),
+      statin_meds = c("no", "no"),
+      equation_version = "Khan_2023",
+      acr = c(40, 40),
+      prevent_type = 'acr'
+    )
+
+    expect_equal( round(prevent_acr_10, 4), c(.0994, .1097) )
+
+    prevent_hba1c_10 <- predict_10yr_ascvd_risk(
+      sex = c("female", "male"),
+      age_years = c(50, 50),
+      chol_total_mgdl = c(200, 200),
+      chol_hdl_mgdl = c(45, 45),
+      bp_sys_mmhg = c(160, 160),
+      diabetes = c("yes", "yes"),
+      smoke_current = c("no", "no"),
+      bmi = c(35, 35),
+      egfr_mlminm2 = c(90, 90),
+      bp_meds = c("yes", "yes"),
+      statin_meds = c("no", "no"),
+      equation_version = "Khan_2023",
+      hba1c = c(7.5, 7.5),
+      prevent_type = 'hba1c'
+    )
+
+    expect_equal( round(prevent_hba1c_10, 4), c(.0835, .0937) )
+
+    prevent_sdi_10 <- predict_10yr_ascvd_risk(
+      sex = c("female", "male"),
+      age_years = c(50, 50),
+      chol_total_mgdl = c(200, 200),
+      chol_hdl_mgdl = c(45, 45),
+      bp_sys_mmhg = c(160, 160),
+      diabetes = c("yes", "yes"),
+      smoke_current = c("no", "no"),
+      bmi = c(35, 35),
+      egfr_mlminm2 = c(90, 90),
+      bp_meds = c("yes", "yes"),
+      statin_meds = c("no", "no"),
+      equation_version = "Khan_2023",
+      sdi = c(8, 8),
+      prevent_type = 'sdi'
+    )
+
+    expect_equal( round(prevent_sdi_10, 4), c(.1003, .1137) )
+
+    prevent_full_10 <- predict_10yr_ascvd_risk(
+      sex = c("female", "male"),
+      age_years = c(50, 50),
+      chol_total_mgdl = c(200, 200),
+      chol_hdl_mgdl = c(45, 45),
+      bp_sys_mmhg = c(160, 160),
+      diabetes = c("yes", "yes"),
+      smoke_current = c("no", "no"),
+      bmi = c(35, 35),
+      egfr_mlminm2 = c(90, 90),
+      bp_meds = c("yes", "yes"),
+      statin_meds = c("no", "no"),
+      equation_version = "Khan_2023",
+      acr = c(40, 40),
+      hba1c = c(7.5, 7.5),
+      sdi = c(8, 8),
+      prevent_type = 'full'
+    )
+
+    expect_equal( round(prevent_full_10, 4), c(.0964,	.1100))
+
+  }
+)
+
+
+
+
+
+
+
+    # # total cvd ----
+    #
+    # expect_equal(
+    #   ._prevent(
+    #     pred_type = "total_cvd",
+    #     sex = "male",
+    #     age_years = 50,
+    #     chol_total_mgdl = 200,
+    #     chol_hdl_mgdl = 45,
+    #     bp_sys_mmhg = 160,
+    #     diabetes = "yes",
+    #     smoke_current = "no",
+    #     bmi = 35,
+    #     egfr_mlminm2 = 90,
+    #     bp_meds = "yes",
+    #     statin_meds = "no",
+    #     prevent_type = 'base',
+    #     year = 10
+    #   ) %>%
+    #     round(4),
+    #   0.1632
+    # )
+    #
+    # expect_equal(
+    #   ._prevent_base_2023(
+    #     pred_type = "total_cvd",
+    #     sex = "female",
+    #     age_years = 50,
+    #     chol_total_mgdl = 200,
+    #     chol_hdl_mgdl = 45,
+    #     bp_sys_mmhg = 160,
+    #     diabetes = 1,
+    #     smoke_current = 0,
+    #     bmi = 35,
+    #     egfr_mlminm2 = 90,
+    #     bp_meds = 1,
+    #     statin_meds = 0
+    #   ) %>%
+    #     round(4),
+    #   0.1468
+    # )
+    #
+    #
+    #
+    # # heart failure (hf) ----
+    #
+    # expect_equal(
+    #   ._prevent_base_2023(
+    #     pred_type = "hf",
+    #     sex = "male",
+    #     age_years = 50,
+    #     chol_total_mgdl = 200,
+    #     chol_hdl_mgdl = 45,
+    #     bp_sys_mmhg = 160,
+    #     diabetes = 1,
+    #     smoke_current = 0,
+    #     bmi = 35,
+    #     egfr_mlminm2 = 90,
+    #     bp_meds = 1,
+    #     statin_meds = 0
+    #   ) %>%
+    #     round(4),
+    #   0.1059
+    # )
+    #
+    # expect_equal(
+    #   ._prevent_base_2023(
+    #     pred_type = "hf",
+    #     sex = "female",
+    #     age_years = 50,
+    #     chol_total_mgdl = 200,
+    #     chol_hdl_mgdl = 45,
+    #     bp_sys_mmhg = 160,
+    #     diabetes = 1,
+    #     smoke_current = 0,
+    #     bmi = 35,
+    #     egfr_mlminm2 = 90,
+    #     bp_meds = 1,
+    #     statin_meds = 0
+    #   ) %>%
+    #     round(4),
+    #   0.0806
+    # )
+    #
+    # # coronary heart disease (chd) ----
+    #
+    # expect_equal(
+    #   ._prevent_base_2023(
+    #     pred_type = "chd",
+    #     sex = "male",
+    #     age_years = 50,
+    #     chol_total_mgdl = 200,
+    #     chol_hdl_mgdl = 45,
+    #     bp_sys_mmhg = 160,
+    #     diabetes = 1,
+    #     smoke_current = 0,
+    #     bmi = 35,
+    #     egfr_mlminm2 = 90,
+    #     bp_meds = 1,
+    #     statin_meds = 0
+    #   ) %>%
+    #     round(4),
+    #   0.0557
+    # )
+    #
+    # expect_equal(
+    #   ._prevent_base_2023(
+    #     pred_type = "chd",
+    #     sex = "female",
+    #     age_years = 50,
+    #     chol_total_mgdl = 200,
+    #     chol_hdl_mgdl = 45,
+    #     bp_sys_mmhg = 160,
+    #     diabetes = 1,
+    #     smoke_current = 0,
+    #     bmi = 35,
+    #     egfr_mlminm2 = 90,
+    #     bp_meds = 1,
+    #     statin_meds = 0
+    #   ) %>%
+    #     round(4),
+    #   0.0441
+    # )
+
+test_that(
   desc = "boundary overrides work",
   code = {
 
