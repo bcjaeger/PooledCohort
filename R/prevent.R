@@ -80,53 +80,64 @@
   diabetes_recode[is.na(diabetes)] <- NA_integer_
 
   # transforming data for input into PREVENT equations ----
-
   ._data <- data.frame(
     sex = sex_recode,
     age_per_10_years = (age_years - 55) / 10,
-    non_hdl_c_per_1_mmol_l = (chol_total_mgdl - chol_hdl_mgdl) * 0.02586 - 3.5 ,
-    hdl_c_per_0.3_mmol_l = (chol_hdl_mgdl * 0.02586 - 1.3) / 0.3 ,
-    sbp_lt110_per_20_mmhg = (min(bp_sys_mmhg, 110) - 110) / 20,
-    sbp_gteq110_per_20_mmhg = (max(bp_sys_mmhg, 110) - 130) / 20,
+    age_per_10_years_squared = ((age_years - 55) / 10) ^ 2,
+    non_hdl_c_per_1_mmol_l = (chol_total_mgdl - chol_hdl_mgdl) * 0.02586 - 3.5,
+    hdl_c_per_0.3_mmol_l = (chol_hdl_mgdl * 0.02586 - 1.3) / 0.3,
+    sbp_lt110_per_20_mmhg = (pmin(bp_sys_mmhg, 110) - 110) / 20,
+    sbp_gteq110_per_20_mmhg = (pmax(bp_sys_mmhg, 110) - 130) / 20,
     diabetes = diabetes_recode,
     current_smoking = smoke_current_recode,
-    bmi_lt30_per_5_kg_m2 = (min(bmi, 30) - 25) / 5,
-    bmi_gt30_per_5_kg_m2 = (max(bmi, 30) - 30) / 5,
-    egfr_lt60_per_15_ml = (min(egfr_mlminm2, 60) - 60) / -15,
-    egfr_gteq60_per_15_ml = (max(egfr_mlminm2, 60)  - 90) / -15,
+    bmi_lt30_per_5_kg_m2 = (pmin(bmi, 30) - 25) / 5,
+    bmi_gt30_per_5_kg_m2 = (pmax(bmi, 30) - 30) / 5,
+    egfr_lt60_per_15_ml = (pmin(egfr_mlminm2, 60) - 60) / -15,
+    egfr_gteq60_per_15_ml = (pmax(egfr_mlminm2, 60)  - 90) / -15,
     anti_hypertensive_use = bp_meds_recode,
     statin_use = statin_meds_recode,
-    treated_sbp_gteq110_mm_hg_per_20_mm_hg = (max(bp_sys_mmhg, 110) - 130) /20 * bp_meds_recode,
+    treated_sbp_gteq110_mm_hg_per_20_mm_hg = (pmax(bp_sys_mmhg, 110) - 130) /20 * bp_meds_recode,
     treated_non_hdl_c = ((chol_total_mgdl - chol_hdl_mgdl) * 0.02586 - 3.5) * statin_meds_recode,
     age_per_10yr_x_non_hdl_c_per_1_mmol_l = (age_years - 55) / 10 * ((chol_total_mgdl - chol_hdl_mgdl) * 0.02586 - 3.5),
     age_per_10yr_x_hdl_c_per_0.3_mml_l = (age_years - 55) / 10 * (chol_hdl_mgdl * 0.02586 - 1.3) / 0.3,
-    age_per_10yr_x_sbp_gteq110_mm_hg_per_20_mmhg = (age_years - 55)/10 * (max(bp_sys_mmhg, 110) - 130) / 20,
+    age_per_10yr_x_sbp_gteq110_mm_hg_per_20_mmhg = (age_years - 55)/10 * (pmax(bp_sys_mmhg, 110) - 130) / 20,
     age_per_10yr_x_diabetes = (age_years - 55) / 10 * diabetes_recode,
     age_per_10yr_x_current_smoking = (age_years - 55) / 10 * smoke_current_recode,
-    age_per_10yr_x_bmi_gteq30_per_5_kg_m2 = (age_years - 55) / 10 * (max(bmi, 30) - 30) / 5,
-    age_per_10yr_x_egfr_lt60_per_15_ml = (age_years - 55) / 10 * (min(egfr_mlminm2, 60) - 60) / -15,
+    age_per_10yr_x_bmi_gteq30_per_5_kg_m2 = (age_years - 55) / 10 * (pmax(bmi, 30) - 30) / 5,
+    age_per_10yr_x_egfr_lt60_per_15_ml = (age_years - 55) / 10 * (pmin(egfr_mlminm2, 60) - 60) / -15,
     # initialize as 0 since these are used conditionally
     sdi_decile_between_4_and_6 = 0,
     sdi_decile_between_7_and_10 = 0,
-    miss_sdi = 0,
     ln_acr = 0,
-    miss_ln_acr = 0,
     hba1c_minus_5.3_x_diabetes = 0,
     hba1c_minus_5.3_x_1_minus_diabetes = 0,
+    miss_sdi = 0,
+    miss_ln_acr = 0,
     miss_hba1c = 0
   )
 
+
   if(prevent_type %in% c("full", "sdi")){
+
+    missing_sdi <- is.na(sdi)
+
+    # to match online calculator:
+    # (Is this a bug in the online calculator??)
+    if(pred_type == 'ascvd'){
+      sdi[missing_sdi & sex_recode == 'female'] <- 1
+      missing_sdi[sex_recode == 'female'] <- FALSE
+    }
+
 
     ._data$sdi_decile_between_4_and_6 = as.numeric(sdi %in% c(4, 5, 6))
     ._data$sdi_decile_between_7_and_10 = as.numeric(sdi >= 7)
 
-    missing_sdi <- is.na(sdi)
 
     if(any(missing_sdi)){
 
       ._data$sdi_decile_between_4_and_6[missing_sdi] <- 0
       ._data$sdi_decile_between_7_and_10[missing_sdi] <- 0
+
       ._data$miss_sdi = as.numeric(missing_sdi)
 
     }
@@ -152,6 +163,7 @@
 
     ._data$hba1c_minus_5.3_x_diabetes = (hba1c - 5.3) * (diabetes_recode)
     ._data$hba1c_minus_5.3_x_1_minus_diabetes = (hba1c - 5.3) * (1 - diabetes_recode)
+
     ._data$miss_hba1c <- as.numeric(is.na(hba1c))
 
     missing_hba1c <- is.na(hba1c)
@@ -182,6 +194,7 @@
   ._data$ind_sum <- with(
     ._data,
     coef_age_per_10_years * age_per_10_years +
+      coef_age_per_10_years_squared * age_per_10_years_squared +
       coef_non_hdl_c_per_1_mmol_l * non_hdl_c_per_1_mmol_l +
       coef_hdl_c_per_0.3_mmol_l * hdl_c_per_0.3_mmol_l +
       coef_sbp_lt110_per_20_mmhg * sbp_lt110_per_20_mmhg +
@@ -203,12 +216,15 @@
       coef_age_per_10yr_x_current_smoking * age_per_10yr_x_current_smoking +
       coef_age_per_10yr_x_bmi_gteq30_per_5_kg_m2 * age_per_10yr_x_bmi_gteq30_per_5_kg_m2 +
       coef_age_per_10yr_x_egfr_lt60_per_15_ml * age_per_10yr_x_egfr_lt60_per_15_ml +
+      # optional covariates (0 if not used)
       coef_sdi_decile_between_4_and_6 * sdi_decile_between_4_and_6 +
       coef_sdi_decile_between_7_and_10 * sdi_decile_between_7_and_10 +
       coef_ln_acr * ln_acr +
-      coef_miss_ln_acr * miss_ln_acr +
       coef_hba1c_minus_5.3_x_diabetes * hba1c_minus_5.3_x_diabetes +
       coef_hba1c_minus_5.3_x_1_minus_diabetes * hba1c_minus_5.3_x_1_minus_diabetes +
+      # missing status for optionals (0 if not used or used & observed)
+      coef_miss_sdi * miss_sdi +
+      coef_miss_ln_acr * miss_ln_acr +
       coef_miss_hba1c * miss_hba1c +
       const
   )
