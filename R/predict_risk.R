@@ -537,6 +537,8 @@ predict_10yr_stroke_risk <- function(
 
 }
 
+#' @rdname predict_10yr_ascvd_risk
+#' @export
 predict_30yr_ascvd_risk <- function(
     age_years,
     race = NULL,
