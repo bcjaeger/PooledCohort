@@ -25,7 +25,8 @@ Suggests:
     testthat,
     covr,
     dplyr
-URL: https://github.com/bcjaeger/PooledCohort
+URL: https://github.com/bcjaeger/PooledCohort,
+    https://bcjaeger.github.io/PooledCohort/
 BugReports: https://github.com/bcjaeger/PooledCohort/issues
 Imports: 
     glue,

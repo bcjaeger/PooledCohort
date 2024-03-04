@@ -5,13 +5,15 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Computes 10-Year Predicted Risk for Atherosclerotic Cardiovascular Disease • PooledCohort</title>
+<title>Predicted Risk for CVD using Pooled Cohort Equations, PREVENT Equations, 
+ and Other Contemporary CVD Risk Calculators • PooledCohort</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Computes 10-Year Predicted Risk for Atherosclerotic Cardiovascular Disease">
+<script src="pkgdown.js"></script><meta property="og:title" content="Predicted Risk for CVD using Pooled Cohort Equations, PREVENT Equations, 
+ and Other Contemporary CVD Risk Calculators">
 <meta property="og:description" content="The 2017 American College of Cardiology and American Heart
   Association blood pressure guideline recommends using 10-year predicted 
   atherosclerotic cardiovascular disease risk to guide the decision to 
@@ -26,6 +28,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -38,26 +42,20 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">PooledCohort</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.2</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="reference/index.html">Reference</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/bcjaeger/PooledCohort/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/bcjaeger/PooledCohort/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -73,29 +71,29 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="pooledcohort" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#pooledcohort" class="anchor"></a>PooledCohort</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="pooledcohort">PooledCohort<a class="anchor" aria-label="anchor" href="#pooledcohort"></a>
+</h1></div>
 <!-- badges: start -->
 <!-- badges: end -->
-<p>The goal of <code>PooledCohort</code> is to give researchers who study risk prediction for cardiovascular disease a clean interface to implement the Pooled Cohort Risk prediction equations.</p>
-<p><em>Why do we want to use Pooled Cohort Risk prediction equations?</em></p>
+<p>The goal of <code>PooledCohort</code> is to give researchers who study risk prediction for cardiovascular disease (CVD) a unified interface to implement the Pooled Cohort Equations, the PREVENT equations, and other contemporary CVD risk calculators</p>
+<p><em>Why use the Pooled Cohort Risk prediction equations?</em></p>
 <p>The 2017 American College of Cardiology and American Heart Association blood pressure guideline recommends using 10-year predicted atherosclerotic cardiovascular disease risk to guide the decision to initiate or intensify antihypertensive medication. The guideline recommends using the Pooled Cohort Risk prediction equations to predict 10-year atherosclerotic cardiovascular disease risk. Therefore, a new method for predicting atherosclerotic cardiovascular disease risk should be evaluated based on how much it can improve risk prediction relative to the Pooled Cohort Risk prediction equations.</p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <!-- You can install the released version of PooledCohort from [CRAN](https://CRAN.R-project.org) with: -->
 <!-- ``` r -->
 <!-- install.packages("PooledCohort") -->
 <!-- ``` -->
-<p>And the development version from <a href="https://github.com/">GitHub</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"bcjaeger/PooledCohort"</span><span class="op">)</span></pre></div>
+<p>And the development version from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/remotes/man/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"bcjaeger/PooledCohort"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="example" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h2>
+<div class="section level2">
+<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+</h2>
 <p>A basic example below computes 10-year atherosclerotic cardiovascular risk using the original Pooled Cohort Risk equations for a person who is black/white and male/female with</p>
 <ul>
 <li>55 years of age</li>
@@ -107,187 +105,227 @@
 <li>no prevalent diabetes</li>
 </ul>
 <p>First we will use a dataset that requires no modification of any variable to be plugged into <code><a href="reference/predict_10yr_ascvd_risk.html">predict_10yr_ascvd_risk()</a></code></p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bcjaeger/PooledCohort">PooledCohort</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="va">example_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
-  sex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'female'</span>, <span class="st">'female'</span>, <span class="st">'male'</span>, <span class="st">'male'</span><span class="op">)</span>,
-  race <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'black'</span>, <span class="st">'white'</span>, <span class="st">'black'</span>, <span class="st">'white'</span><span class="op">)</span>,
-  age_years <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">55</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,
-  chol_total_mgdl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">213</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,
-  chol_hdl_mgdl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">50</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,
-  bp_sys_mmhg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">120</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,
-  bp_meds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">'no'</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,
-  smoke_current <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">'no'</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,
-  diabetes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">'no'</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,
-  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="va">example_data</span>
-<span class="co">#&gt;      sex  race age_years chol_total_mgdl chol_hdl_mgdl bp_sys_mmhg bp_meds</span>
-<span class="co">#&gt; 1 female black        55             213            50         120      no</span>
-<span class="co">#&gt; 2 female white        55             213            50         120      no</span>
-<span class="co">#&gt; 3   male black        55             213            50         120      no</span>
-<span class="co">#&gt; 4   male white        55             213            50         120      no</span>
-<span class="co">#&gt;   smoke_current diabetes</span>
-<span class="co">#&gt; 1            no       no</span>
-<span class="co">#&gt; 2            no       no</span>
-<span class="co">#&gt; 3            no       no</span>
-<span class="co">#&gt; 4            no       no</span></pre></div>
-<p>A convenient way to use <code><a href="reference/predict_10yr_ascvd_risk.html">predict_10yr_ascvd_risk()</a></code> is within <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">dplyr::mutate()</a></code>:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-
-<span class="va">example_risk</span> <span class="op">&lt;-</span> <span class="va">example_data</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
-    risk <span class="op">=</span> <span class="fu"><a href="reference/predict_10yr_ascvd_risk.html">predict_10yr_ascvd_risk</a></span><span class="op">(</span>
-      sex <span class="op">=</span> <span class="va">sex</span>,
-      race <span class="op">=</span> <span class="va">race</span>,
-      age_years <span class="op">=</span> <span class="va">age_years</span>,
-      chol_total_mgdl <span class="op">=</span> <span class="va">chol_total_mgdl</span>,
-      chol_hdl_mgdl <span class="op">=</span> <span class="va">chol_hdl_mgdl</span>,
-      bp_sys_mmhg <span class="op">=</span> <span class="va">bp_sys_mmhg</span>,
-      bp_meds <span class="op">=</span> <span class="va">bp_meds</span>,
-      smoke_current <span class="op">=</span> <span class="va">smoke_current</span>,
-      diabetes <span class="op">=</span> <span class="va">diabetes</span>
-    <span class="op">)</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">sex</span>, <span class="va">race</span>, <span class="va">risk</span><span class="op">)</span>
-
-<span class="va">example_risk</span>
-<span class="co">#&gt;      sex  race       risk</span>
-<span class="co">#&gt; 1 female black 0.02998196</span>
-<span class="co">#&gt; 2 female white 0.02054450</span>
-<span class="co">#&gt; 3   male black 0.06061116</span>
-<span class="co">#&gt; 4   male white 0.05378606</span></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bcjaeger/PooledCohort" class="external-link">PooledCohort</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">example_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  sex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'female'</span>, <span class="st">'female'</span>, <span class="st">'male'</span>, <span class="st">'male'</span><span class="op">)</span>,</span>
+<span>  race <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'black'</span>, <span class="st">'white'</span>, <span class="st">'black'</span>, <span class="st">'white'</span><span class="op">)</span>,</span>
+<span>  age_years <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">55</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
+<span>  chol_total_mgdl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">213</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
+<span>  chol_hdl_mgdl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">50</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
+<span>  bp_sys_mmhg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">120</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
+<span>  bp_meds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">'no'</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
+<span>  smoke_current <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">'no'</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
+<span>  diabetes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">'no'</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
+<span>  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">example_data</span></span>
+<span><span class="co">#&gt;      sex  race age_years chol_total_mgdl chol_hdl_mgdl bp_sys_mmhg bp_meds</span></span>
+<span><span class="co">#&gt; 1 female black        55             213            50         120      no</span></span>
+<span><span class="co">#&gt; 2 female white        55             213            50         120      no</span></span>
+<span><span class="co">#&gt; 3   male black        55             213            50         120      no</span></span>
+<span><span class="co">#&gt; 4   male white        55             213            50         120      no</span></span>
+<span><span class="co">#&gt;   smoke_current diabetes</span></span>
+<span><span class="co">#&gt; 1            no       no</span></span>
+<span><span class="co">#&gt; 2            no       no</span></span>
+<span><span class="co">#&gt; 3            no       no</span></span>
+<span><span class="co">#&gt; 4            no       no</span></span></code></pre></div>
+<p>A convenient way to use <code><a href="reference/predict_10yr_ascvd_risk.html">predict_10yr_ascvd_risk()</a></code> is within <code><a href="https://rdrr.io/pkg/dplyr/man/mutate.html" class="external-link">dplyr::mutate()</a></code>:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">example_risk</span> <span class="op">&lt;-</span> <span class="va">example_data</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    risk <span class="op">=</span> <span class="fu"><a href="reference/predict_10yr_ascvd_risk.html">predict_10yr_ascvd_risk</a></span><span class="op">(</span></span>
+<span>      sex <span class="op">=</span> <span class="va">sex</span>,</span>
+<span>      race <span class="op">=</span> <span class="va">race</span>,</span>
+<span>      age_years <span class="op">=</span> <span class="va">age_years</span>,</span>
+<span>      chol_total_mgdl <span class="op">=</span> <span class="va">chol_total_mgdl</span>,</span>
+<span>      chol_hdl_mgdl <span class="op">=</span> <span class="va">chol_hdl_mgdl</span>,</span>
+<span>      bp_sys_mmhg <span class="op">=</span> <span class="va">bp_sys_mmhg</span>,</span>
+<span>      bp_meds <span class="op">=</span> <span class="va">bp_meds</span>,</span>
+<span>      smoke_current <span class="op">=</span> <span class="va">smoke_current</span>,</span>
+<span>      diabetes <span class="op">=</span> <span class="va">diabetes</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">sex</span>, <span class="va">race</span>, <span class="va">risk</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">example_risk</span></span>
+<span><span class="co">#&gt;      sex  race       risk</span></span>
+<span><span class="co">#&gt; 1 female black 0.02998196</span></span>
+<span><span class="co">#&gt; 2 female white 0.02054450</span></span>
+<span><span class="co">#&gt; 3   male black 0.06061116</span></span>
+<span><span class="co">#&gt; 4   male white 0.05378606</span></span></code></pre></div>
+<p>A similar interface is available for the PREVENT equations. Note how we set <code>race</code> to <code>NULL</code> (PREVENT equations do not use race), and add values for statin use, estimated glomerular filtration rate, and body mass index.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">example_data</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    risk <span class="op">=</span> <span class="fu"><a href="reference/predict_10yr_ascvd_risk.html">predict_10yr_ascvd_risk</a></span><span class="op">(</span></span>
+<span>      sex <span class="op">=</span> <span class="va">sex</span>,</span>
+<span>      race <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>      age_years <span class="op">=</span> <span class="va">age_years</span>,</span>
+<span>      chol_total_mgdl <span class="op">=</span> <span class="va">chol_total_mgdl</span>,</span>
+<span>      chol_hdl_mgdl <span class="op">=</span> <span class="va">chol_hdl_mgdl</span>,</span>
+<span>      bp_sys_mmhg <span class="op">=</span> <span class="va">bp_sys_mmhg</span>,</span>
+<span>      bp_meds <span class="op">=</span> <span class="va">bp_meds</span>,</span>
+<span>      smoke_current <span class="op">=</span> <span class="va">smoke_current</span>,</span>
+<span>      diabetes <span class="op">=</span> <span class="va">diabetes</span>, </span>
+<span>      statin_meds <span class="op">=</span> <span class="st">"no"</span>,</span>
+<span>      egfr_mlminm2 <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>      bmi <span class="op">=</span> <span class="fl">28</span>,</span>
+<span>      equation_version <span class="op">=</span> <span class="st">"Khan_2023"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">sex</span>, <span class="va">race</span>, <span class="va">risk</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      sex  race       risk</span></span>
+<span><span class="co">#&gt; 1 female black 0.01910652</span></span>
+<span><span class="co">#&gt; 2 female white 0.01910652</span></span>
+<span><span class="co">#&gt; 3   male black 0.02778896</span></span>
+<span><span class="co">#&gt; 4   male white 0.02778896</span></span></code></pre></div>
 </div>
-<div id="data-formatting" class="section level2">
-<h2 class="hasAnchor">
-<a href="#data-formatting" class="anchor"></a>Data formatting</h2>
-<p>Data usually need to be modified slightly before being plugged into the Pooled Cohort Risk equations. For example, instead of a <code>race</code> variable with values of <code>black</code> and <code>white</code>, the data may have a <code>race</code> variable with values of <code>african_american</code>, <code>caucasian</code>, and <code>other</code>.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-
-<span class="va">example_data_granular</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
-  sex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'female'</span>, <span class="st">'female'</span>, <span class="st">'male'</span>, <span class="st">'male'</span><span class="op">)</span>,
-  race <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'african_american'</span>, <span class="st">'caucasian'</span>, <span class="st">'african_american'</span>, <span class="st">'other'</span><span class="op">)</span>,
-  age_years <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">55</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,
-  chol_total_mgdl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">213</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,
-  chol_hdl_mgdl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">50</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,
-  bp_sys_mmhg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">120</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,
-  bp_meds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">'no'</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,
-  smoke_current <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">'no'</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,
-  diabetes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">'no'</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,
-  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></pre></div>
+<div class="section level2">
+<h2 id="data-formatting">Data formatting<a class="anchor" aria-label="anchor" href="#data-formatting"></a>
+</h2>
+<p>Data usually need to be modified slightly before being plugged into a Risk calculator. For example, instead of a <code>race</code> variable with values of <code>black</code> and <code>white</code>, the data may have a <code>race</code> variable with values of <code>african_american</code>, <code>caucasian</code>, and <code>other</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">example_data_granular</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  sex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'female'</span>, <span class="st">'female'</span>, <span class="st">'male'</span>, <span class="st">'male'</span><span class="op">)</span>,</span>
+<span>  race <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'african_american'</span>, <span class="st">'caucasian'</span>, <span class="st">'african_american'</span>, <span class="st">'other'</span><span class="op">)</span>,</span>
+<span>  age_years <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">55</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
+<span>  chol_total_mgdl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">213</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
+<span>  chol_hdl_mgdl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">50</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
+<span>  bp_sys_mmhg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">120</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
+<span>  bp_meds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">'no'</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
+<span>  smoke_current <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">'no'</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
+<span>  diabetes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">'no'</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
+<span>  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>While you can always modify variables in your data so that they meet the same format as the variables in <code>example_data</code> above, you may prefer to let <code><a href="reference/predict_10yr_ascvd_risk.html">predict_10yr_ascvd_risk()</a></code> modify those variables for you:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-
-<span class="co"># a mapping from the current race categories to </span>
-<span class="co"># the 'black' and 'white' categories used by the</span>
-<span class="co"># Pooled Cohort Risk equations.</span>
-
-<span class="va">race_levels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  black <span class="op">=</span> <span class="st">'african_american'</span>,
-  white <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'caucasian'</span>, <span class="st">'other'</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="va">example_risk_granular</span> <span class="op">&lt;-</span> <span class="va">example_data_granular</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
-    risk <span class="op">=</span> <span class="fu"><a href="reference/predict_10yr_ascvd_risk.html">predict_10yr_ascvd_risk</a></span><span class="op">(</span>
-      sex <span class="op">=</span> <span class="va">sex</span>,
-      race <span class="op">=</span> <span class="va">race</span>,
-      race_levels <span class="op">=</span> <span class="va">race_levels</span>,
-      age_years <span class="op">=</span> <span class="va">age_years</span>,
-      chol_total_mgdl <span class="op">=</span> <span class="va">chol_total_mgdl</span>,
-      chol_hdl_mgdl <span class="op">=</span> <span class="va">chol_hdl_mgdl</span>,
-      bp_sys_mmhg <span class="op">=</span> <span class="va">bp_sys_mmhg</span>,
-      bp_meds <span class="op">=</span> <span class="va">bp_meds</span>,
-      smoke_current <span class="op">=</span> <span class="va">smoke_current</span>,
-      diabetes <span class="op">=</span> <span class="va">diabetes</span>
-    <span class="op">)</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">sex</span>, <span class="va">race</span>, <span class="va">risk</span><span class="op">)</span>
-
-<span class="va">example_risk_granular</span>
-<span class="co">#&gt;      sex             race       risk</span>
-<span class="co">#&gt; 1 female african_american 0.02998196</span>
-<span class="co">#&gt; 2 female        caucasian 0.02054450</span>
-<span class="co">#&gt; 3   male african_american 0.06061116</span>
-<span class="co">#&gt; 4   male            other 0.05378606</span></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># a mapping from the current race categories to </span></span>
+<span><span class="co"># the 'black' and 'white' categories used by the</span></span>
+<span><span class="co"># Pooled Cohort Risk equations.</span></span>
+<span></span>
+<span><span class="va">race_levels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  black <span class="op">=</span> <span class="st">'african_american'</span>,</span>
+<span>  white <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'caucasian'</span>, <span class="st">'other'</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">example_risk_granular</span> <span class="op">&lt;-</span> <span class="va">example_data_granular</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    risk <span class="op">=</span> <span class="fu"><a href="reference/predict_10yr_ascvd_risk.html">predict_10yr_ascvd_risk</a></span><span class="op">(</span></span>
+<span>      sex <span class="op">=</span> <span class="va">sex</span>,</span>
+<span>      race <span class="op">=</span> <span class="va">race</span>,</span>
+<span>      race_levels <span class="op">=</span> <span class="va">race_levels</span>,</span>
+<span>      age_years <span class="op">=</span> <span class="va">age_years</span>,</span>
+<span>      chol_total_mgdl <span class="op">=</span> <span class="va">chol_total_mgdl</span>,</span>
+<span>      chol_hdl_mgdl <span class="op">=</span> <span class="va">chol_hdl_mgdl</span>,</span>
+<span>      bp_sys_mmhg <span class="op">=</span> <span class="va">bp_sys_mmhg</span>,</span>
+<span>      bp_meds <span class="op">=</span> <span class="va">bp_meds</span>,</span>
+<span>      smoke_current <span class="op">=</span> <span class="va">smoke_current</span>,</span>
+<span>      diabetes <span class="op">=</span> <span class="va">diabetes</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">sex</span>, <span class="va">race</span>, <span class="va">risk</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">example_risk_granular</span></span>
+<span><span class="co">#&gt;      sex             race       risk</span></span>
+<span><span class="co">#&gt; 1 female african_american 0.02998196</span></span>
+<span><span class="co">#&gt; 2 female        caucasian 0.02054450</span></span>
+<span><span class="co">#&gt; 3   male african_american 0.06061116</span></span>
+<span><span class="co">#&gt; 4   male            other 0.05378606</span></span></code></pre></div>
 </div>
-<div id="a-picky-estimator" class="section level2">
-<h2 class="hasAnchor">
-<a href="#a-picky-estimator" class="anchor"></a>A picky estimator</h2>
+<div class="section level2">
+<h2 id="a-picky-estimator">A picky estimator<a class="anchor" aria-label="anchor" href="#a-picky-estimator"></a>
+</h2>
 <p><code><a href="reference/predict_10yr_ascvd_risk.html">predict_10yr_ascvd_risk()</a></code> is a picky estimator that will throw hard stops at you if it doesn’t like the data you give it. In particular, if the input data has continuous variables with values outside the range of recommended values for the Pooled Cohort equations, you will get an error message.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-
-<span class="fu"><a href="reference/predict_10yr_ascvd_risk.html">predict_10yr_ascvd_risk</a></span><span class="op">(</span>
-  sex <span class="op">=</span> <span class="st">'male'</span>,
-  race <span class="op">=</span> <span class="st">'black'</span>,
-  age_years <span class="op">=</span> <span class="fl">35</span>, <span class="co"># age recommendation: 40-79</span>
-  chol_total_mgdl <span class="op">=</span> <span class="fl">213</span>,
-  chol_hdl_mgdl <span class="op">=</span> <span class="fl">55</span>,
-  bp_sys_mmhg <span class="op">=</span> <span class="fl">120</span>,
-  bp_meds <span class="op">=</span> <span class="st">'no'</span>,
-  smoke_current <span class="op">=</span> <span class="st">'no'</span>,
-  diabetes <span class="op">=</span> <span class="st">'no'</span>
-<span class="op">)</span>
-<span class="co">#&gt; Error: min(age_years) is 35 but should be &gt;= 40</span></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="reference/predict_10yr_ascvd_risk.html">predict_10yr_ascvd_risk</a></span><span class="op">(</span></span>
+<span>  sex <span class="op">=</span> <span class="st">'male'</span>,</span>
+<span>  race <span class="op">=</span> <span class="st">'black'</span>,</span>
+<span>  age_years <span class="op">=</span> <span class="fl">35</span>, <span class="co"># age recommendation: 40-79</span></span>
+<span>  chol_total_mgdl <span class="op">=</span> <span class="fl">213</span>,</span>
+<span>  chol_hdl_mgdl <span class="op">=</span> <span class="fl">55</span>,</span>
+<span>  bp_sys_mmhg <span class="op">=</span> <span class="fl">120</span>,</span>
+<span>  bp_meds <span class="op">=</span> <span class="st">'no'</span>,</span>
+<span>  smoke_current <span class="op">=</span> <span class="st">'no'</span>,</span>
+<span>  diabetes <span class="op">=</span> <span class="st">'no'</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error: min(age_years) is 35 but should be &gt;= 40</span></span></code></pre></div>
 <p>This is meant to help you avoid mis-use of the Pooled Cohort Risk equations. However, if you <em>must</em> go outside the range of recommended values, you can set the argument <code>override_boundary_errors</code> to <code>TRUE</code>.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-
-<span class="fu"><a href="reference/predict_10yr_ascvd_risk.html">predict_10yr_ascvd_risk</a></span><span class="op">(</span>
-  sex <span class="op">=</span> <span class="st">'male'</span>,
-  race <span class="op">=</span> <span class="st">'black'</span>,
-  age_years <span class="op">=</span> <span class="fl">35</span>,
-  chol_total_mgdl <span class="op">=</span> <span class="fl">213</span>,
-  chol_hdl_mgdl <span class="op">=</span> <span class="fl">55</span>,
-  bp_sys_mmhg <span class="op">=</span> <span class="fl">120</span>,
-  bp_meds <span class="op">=</span> <span class="st">'no'</span>,
-  smoke_current <span class="op">=</span> <span class="st">'no'</span>,
-  diabetes <span class="op">=</span> <span class="st">'no'</span>,
-  override_boundary_errors <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-<span class="co">#&gt; [1] 0.01969643</span></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="reference/predict_10yr_ascvd_risk.html">predict_10yr_ascvd_risk</a></span><span class="op">(</span></span>
+<span>  sex <span class="op">=</span> <span class="st">'male'</span>,</span>
+<span>  race <span class="op">=</span> <span class="st">'black'</span>,</span>
+<span>  age_years <span class="op">=</span> <span class="fl">35</span>,</span>
+<span>  chol_total_mgdl <span class="op">=</span> <span class="fl">213</span>,</span>
+<span>  chol_hdl_mgdl <span class="op">=</span> <span class="fl">55</span>,</span>
+<span>  bp_sys_mmhg <span class="op">=</span> <span class="fl">120</span>,</span>
+<span>  bp_meds <span class="op">=</span> <span class="st">'no'</span>,</span>
+<span>  smoke_current <span class="op">=</span> <span class="st">'no'</span>,</span>
+<span>  diabetes <span class="op">=</span> <span class="st">'no'</span>,</span>
+<span>  override_boundary_errors <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.01969643</span></span></code></pre></div>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/bcjaeger/PooledCohort/">https://​github.com/​bcjaeger/​PooledCohort/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/bcjaeger/PooledCohort/issues">https://​github.com/​bcjaeger/​PooledCohort/​issues</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=PooledCohort" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/bcjaeger/PooledCohort/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/bcjaeger/PooledCohort/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
-<div class="developers">
-<h2>Developers</h2>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li>Byron Jaeger <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-7399-2299" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html#citation">Citing PooledCohort</a></li>
 </ul>
 </div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>Byron Jaeger <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-7399-2299" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+</ul>
+</div>
+
+
 
   </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Byron Jaeger.</p>
+  <p></p>
+<p>Developed by Byron Jaeger.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
@@ -295,6 +333,8 @@
 
   
 
+
+  
 
   </body>
 </html>

@@ -1,5 +1,6 @@
+url: https://bcjaeger.github.io/PooledCohort/
 reference:
 - title: Pooled cohort risk prediction equations
-  desc:  Compute 10-year predicted risk for first atherosclerotic cardiovascular disease.
-- contents:
-  - starts_with("predict_10yr")
+  desc: Compute 10-year predicted risk for first atherosclerotic cardiovascular disease.
+- contents: starts_with("predict_10yr")
+
