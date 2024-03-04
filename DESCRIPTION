@@ -1,11 +1,12 @@
 Package: PooledCohort
-Title: Computes Predicted Risk for Cardiovascular Disease
+Title: Predicted Risk for CVD using Pooled Cohort Equations, PREVENT Equations, 
+ and Other Contemporary CVD Risk Calculators
 Version: 0.0.2
 Authors@R: 
     c(person(given = "Byron",
              family = "Jaeger",
              role = c("aut", "cre"),
-             email = "bcjaeger@uab.edu",
+             email = "bjaeger@wakehealth.edu",
              comment = c(ORCID = "0000-0001-7399-2299")))
 Description: The 2017 American College of Cardiology and American Heart
   Association blood pressure guideline recommends using 10-year predicted 

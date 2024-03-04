@@ -4,14 +4,14 @@
 # PooledCohort
 
 <!-- badges: start -->
-
 <!-- badges: end -->
 
 The goal of `PooledCohort` is to give researchers who study risk
-prediction for cardiovascular disease a clean interface to implement the
-Pooled Cohort Risk prediction equations.
+prediction for cardiovascular disease (CVD) a unified interface to
+implement the Pooled Cohort Equations, the PREVENT equations, and other
+contemporary CVD risk calculators
 
-*Why do we want to use Pooled Cohort Risk prediction equations?*
+*Why use the Pooled Cohort Risk prediction equations?*
 
 The 2017 American College of Cardiology and American Heart Association
 blood pressure guideline recommends using 10-year predicted
@@ -26,11 +26,8 @@ to the Pooled Cohort Risk prediction equations.
 ## Installation
 
 <!-- You can install the released version of PooledCohort from [CRAN](https://CRAN.R-project.org) with: -->
-
 <!-- ``` r -->
-
 <!-- install.packages("PooledCohort") -->
-
 <!-- ``` -->
 
 And the development version from [GitHub](https://github.com/) with:
@@ -46,13 +43,13 @@ A basic example below computes 10-year atherosclerotic cardiovascular
 risk using the original Pooled Cohort Risk equations for a person who is
 black/white and male/female with
 
-  - 55 years of age
-  - 213 mg/dL total cholesterol
-  - 50 mg/dL high density lipoprotein (HDL) cholesterol
-  - 120 mm Hg systolic blood pressure
-  - no antihypertensive medication use
-  - no current smoking
-  - no prevalent diabetes
+- 55 years of age
+- 213 mg/dL total cholesterol
+- 50 mg/dL high density lipoprotein (HDL) cholesterol
+- 120 mm Hg systolic blood pressure
+- no antihypertensive medication use
+- no current smoking
+- no prevalent diabetes
 
 First we will use a dataset that requires no modification of any
 variable to be plugged into `predict_10yr_ascvd_risk()`
@@ -117,12 +114,45 @@ example_risk
 #> 4   male white 0.05378606
 ```
 
+A similar interface is available for the PREVENT equations. Note how we
+set `race` to `NULL` (PREVENT equations do not use race), and add values
+for statin use, estimated glomerular filtration rate, and body mass
+index.
+
+``` r
+
+example_data %>% 
+  mutate(
+    risk = predict_10yr_ascvd_risk(
+      sex = sex,
+      race = NULL,
+      age_years = age_years,
+      chol_total_mgdl = chol_total_mgdl,
+      chol_hdl_mgdl = chol_hdl_mgdl,
+      bp_sys_mmhg = bp_sys_mmhg,
+      bp_meds = bp_meds,
+      smoke_current = smoke_current,
+      diabetes = diabetes, 
+      statin_meds = "no",
+      egfr_mlminm2 = 100,
+      bmi = 28,
+      equation_version = "Khan_2023"
+    )
+  ) %>% 
+  select(sex, race, risk)
+#>      sex  race       risk
+#> 1 female black 0.01910652
+#> 2 female white 0.01910652
+#> 3   male black 0.02778896
+#> 4   male white 0.02778896
+```
+
 ## Data formatting
 
-Data usually need to be modified slightly before being plugged into the
-Pooled Cohort Risk equations. For example, instead of a `race` variable
-with values of `black` and `white`, the data may have a `race` variable
-with values of `african_american`, `caucasian`, and `other`.
+Data usually need to be modified slightly before being plugged into a
+Risk calculator. For example, instead of a `race` variable with values
+of `black` and `white`, the data may have a `race` variable with values
+of `african_american`, `caucasian`, and `other`.
 
 ``` r
 
