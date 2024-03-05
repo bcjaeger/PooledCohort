@@ -12,7 +12,7 @@
 \alias{predict_30yr_chd_risk}
 \alias{predict_30yr_stroke_risk}
 \alias{predict_5yr_ascvd_risk}
-\title{ASCVD Risk Calculator}
+\title{CVD Risk Calculator}
 \usage{
 predict_10yr_ascvd_risk(
   age_years,
@@ -545,4 +545,12 @@ Yadlowsky S, Hayward RA, Sussman JB, McClelland RL, Min YI, Basu S.
 Clinical implications of revised pooled cohort equations for estimating
 atherosclerotic cardiovascular disease risk. \emph{Annals of internal medicine}.
 2018 Jul 3;169(1):20-9. DOI: 10.7326/M17-3011
+
+Khan SS, Coresh J, Pencina MJ, Ndumele CE, Rangaswami J, Chow SL,
+Palaniappan LP, Sperling LS, Virani SS, Ho JE, Neeland IJ, Tuttle KR,
+Rajgopal Singh R, Elkind MSV, Lloyd-Jones DM; American Heart Association.
+Novel Prediction Equations for Absolute Risk Assessment of Total
+Cardiovascular Disease Incorporating Cardiovascular-Kidney-Metabolic
+Health: A Scientific Statement From the American Heart Association.
+\emph{Circulation}. 2023 Dec 12;148(24):1982-2004. PMID: 37947094.
 }
