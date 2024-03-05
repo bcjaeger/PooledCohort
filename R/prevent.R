@@ -25,6 +25,84 @@
                       pred_type,
                       year){
 
+  sex = as.character(sex)
+  smoke_current = as.character(smoke_current)
+  diabetes = as.character(diabetes)
+  bp_meds = as.character(bp_meds)
+  statin_meds = as.character(statin_meds)
+
+  check_call(
+    match.call(),
+    expected = list(
+      'age_years' = list(
+        type = 'numeric',
+        length = NULL,
+        lwr = ifelse(override_boundary_errors, yes = -Inf, no = 30),
+        upr = ifelse(override_boundary_errors, yes = Inf,  no = 80)
+      ),
+      'sex' = list(
+        type = 'character',
+        length = NULL,
+        options = sex_levels
+      ),
+      'smoke_current' = list(
+        type = 'character',
+        length = NULL,
+        options = smoke_current_levels
+      ),
+      'chol_total_mgdl' = list(
+        type = 'numeric',
+        length = NULL,
+        lwr = ifelse(override_boundary_errors, yes = -Inf, no = 130),
+        upr = ifelse(override_boundary_errors, yes = Inf,  no = 320)
+      ),
+      'chol_hdl_mgdl' = list(
+        type = 'numeric',
+        length = NULL,
+        lwr = ifelse(override_boundary_errors, yes = -Inf, no = 20),
+        upr = ifelse(override_boundary_errors, yes = Inf,  no = 100)
+      ),
+      'bmi' = list(
+        type = 'numeric',
+        length = NULL,
+        lwr = ifelse(override_boundary_errors, yes = -Inf, no = 18.5),
+        upr = ifelse(override_boundary_errors, yes = Inf,  no = 40)
+      ),
+      'egfr_mlminm2' = list(
+        type = 'numeric',
+        length = NULL,
+        lwr = ifelse(override_boundary_errors, yes = -Inf, no = 15),
+        upr = ifelse(override_boundary_errors, yes = Inf,  no = 140)
+      ),
+      'bp_sys_mmhg' = list(
+        type = 'numeric',
+        length = NULL,
+        lwr = ifelse(override_boundary_errors, yes = -Inf, no = 90),
+        upr = ifelse(override_boundary_errors, yes = Inf,  no = 200)
+      ),
+      'bp_meds' = list(
+        type = 'character',
+        length = NULL,
+        options = bp_meds_levels
+      ),
+      'statin_meds' = list(
+        type = 'character',
+        length = NULL,
+        options = statin_meds_levels
+      ),
+      'diabetes' = list(
+        type = 'character',
+        length = NULL,
+        options = diabetes_levels
+      ),
+      'sex_levels' = list(
+        type = 'list',
+        length = 2,
+        names = c('female', 'male')
+      )
+    )
+  )
+
 
   # use something other than length(acr) b/c acr may be null
   ln_acr <- rep(0, length(sex))
