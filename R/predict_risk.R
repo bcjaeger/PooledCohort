@@ -1,7 +1,7 @@
 
 
 
-#' ASCVD Risk Calculator
+#' CVD Risk Calculator
 #'
 #' @description This function implements
 #'
@@ -167,6 +167,14 @@
 #'   Clinical implications of revised pooled cohort equations for estimating
 #'   atherosclerotic cardiovascular disease risk. *Annals of internal medicine*.
 #'   2018 Jul 3;169(1):20-9. DOI: 10.7326/M17-3011
+#'
+#'   Khan SS, Coresh J, Pencina MJ, Ndumele CE, Rangaswami J, Chow SL,
+#'   Palaniappan LP, Sperling LS, Virani SS, Ho JE, Neeland IJ, Tuttle KR,
+#'   Rajgopal Singh R, Elkind MSV, Lloyd-Jones DM; American Heart Association.
+#'   Novel Prediction Equations for Absolute Risk Assessment of Total
+#'   Cardiovascular Disease Incorporating Cardiovascular-Kidney-Metabolic
+#'   Health: A Scientific Statement From the American Heart Association.
+#'   *Circulation*. 2023 Dec 12;148(24):1982-2004. PMID: 37947094.
 #'
 #' @examples
 #'
