@@ -21,24 +21,25 @@ knitr::opts_chunk$set(
 
 The goal of `PooledCohort` is to give researchers who study risk prediction for cardiovascular disease (CVD) a unified interface to implement the Pooled Cohort Equations, the PREVENT equations, and other contemporary CVD risk calculators 
 
-*Why use the Pooled Cohort Risk prediction equations?*
+*Why use these CVD risk calculators?*
 
-The 2017 American College of Cardiology and American Heart Association blood pressure guideline recommends using 10-year predicted atherosclerotic cardiovascular disease risk to guide the decision to initiate or intensify antihypertensive medication. The guideline recommends using the Pooled Cohort Risk prediction equations to predict 10-year atherosclerotic cardiovascular disease risk. Therefore, a new method for predicting atherosclerotic cardiovascular disease risk should be evaluated based on how much it can improve risk prediction relative to the Pooled Cohort Risk prediction equations.
+The 2017 American College of Cardiology and American Heart Association blood pressure guideline recommends using 10-year predicted atherosclerotic cardiovascular disease risk to guide the decision to initiate or intensify antihypertensive medication. The guideline recommends using the Pooled Cohort Risk prediction equations to predict 10-year atherosclerotic cardiovascular disease risk. Therefore, new methods for predicting atherosclerotic cardiovascular disease risk should be evaluated with reference to the Pooled Cohort Risk prediction equations.
 
 ## Installation
 
-<!-- You can install the released version of PooledCohort from [CRAN](https://CRAN.R-project.org) with: -->
+You can install the released version of PooledCohort from [CRAN](https://CRAN.R-project.org) with:
 
-<!-- ``` r -->
-<!-- install.packages("PooledCohort") -->
-<!-- ``` -->
+``` r
+install.packages("PooledCohort")
+```
 
-And the development version from [GitHub](https://github.com/) with:
+and the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("bcjaeger/PooledCohort")
 ```
+
 ## Example
 
 A basic example below computes 10-year atherosclerotic cardiovascular risk using the original Pooled Cohort Risk equations for a person who is black/white and male/female with 
@@ -99,7 +100,15 @@ example_risk
 
 ```
 
-A similar interface is available for the PREVENT equations. Note how we set `race` to `NULL` (PREVENT equations do not use race), and add values for statin use, estimated glomerular filtration rate, and body mass index. 
+### Using the PREVENT equations
+
+A similar interface is available for the PREVENT equations by setting the `equation_version` input to "Khan_2023". Additionally,
+
+- the type of PREVENT equation to use is governed by the `prevent_type` input. 
+
+- We no longer specify `race` as the PREVENT equations do not use race.  
+
+- We add values for statin use, estimated glomerular filtration rate, and body mass index. 
 
 ```{r}
 
@@ -107,7 +116,6 @@ example_data %>%
   mutate(
     risk = predict_10yr_ascvd_risk(
       sex = sex,
-      race = NULL,
       age_years = age_years,
       chol_total_mgdl = chol_total_mgdl,
       chol_hdl_mgdl = chol_hdl_mgdl,
@@ -118,7 +126,8 @@ example_data %>%
       statin_meds = "no",
       egfr_mlminm2 = 100,
       bmi = 28,
-      equation_version = "Khan_2023"
+      equation_version = "Khan_2023",
+      prevent_type = 'base'
     )
   ) %>% 
   select(sex, race, risk)
