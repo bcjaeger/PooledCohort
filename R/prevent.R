@@ -31,6 +31,8 @@
   bp_meds = as.character(bp_meds)
   statin_meds = as.character(statin_meds)
 
+  if(is.null(bmi)) bmi <- rep(30, length(age_years))
+
   check_call(
     match.call(),
     expected = list(
@@ -122,14 +124,6 @@
   if(prevent_type %in% c("sdi", "full") && is.null(sdi)){
     stop("missing required variable: sdi")
   }
-
-  # coerce categorical data to character values ----
-
-  sex = as.character(sex)
-  smoke_current = as.character(smoke_current)
-  bp_meds = as.character(bp_meds)
-  statin_meds = as.character(statin_meds)
-  diabetes = as.character(diabetes)
 
   # recoding categorical variables ----
 

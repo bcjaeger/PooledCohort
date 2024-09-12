@@ -913,6 +913,8 @@ predict_30yr_stroke_risk <- function(
 
     missing_vars <- c("statin_meds", "egfr_mlminm2", "bmi")[missing]
 
+    if(pred_type != 'hf') missing_vars <- setdiff(missing_vars, 'bmi')
+
     if(length(missing_vars) > 0){
 
       plural <- length(missing_vars > 1)
