@@ -1,24 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://bcjaeger.github.io/PooledCohort/404.html</loc>
-  </url>
-  <url>
-    <loc>https://bcjaeger.github.io/PooledCohort/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://bcjaeger.github.io/PooledCohort/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://bcjaeger.github.io/PooledCohort/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://bcjaeger.github.io/PooledCohort/index.html</loc>
-  </url>
-  <url>
-    <loc>https://bcjaeger.github.io/PooledCohort/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://bcjaeger.github.io/PooledCohort/reference/predict_10yr_ascvd_risk.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://bcjaeger.github.io/PooledCohort/404.html</loc></url>
+<url><loc>https://bcjaeger.github.io/PooledCohort/LICENSE-text.html</loc></url>
+<url><loc>https://bcjaeger.github.io/PooledCohort/LICENSE.html</loc></url>
+<url><loc>https://bcjaeger.github.io/PooledCohort/authors.html</loc></url>
+<url><loc>https://bcjaeger.github.io/PooledCohort/index.html</loc></url>
+<url><loc>https://bcjaeger.github.io/PooledCohort/reference/index.html</loc></url>
+<url><loc>https://bcjaeger.github.io/PooledCohort/reference/predict_10yr_ascvd_risk.html</loc></url>
 </urlset>
+
