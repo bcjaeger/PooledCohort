@@ -11,7 +11,7 @@ test_that(
       bp_sys_mmhg = c(160, 160),
       diabetes = c("yes", "yes"),
       smoke_current = c("no", "no"),
-      bmi = c(35, 35),
+      # bmi = c(35, 35),
       egfr_mlminm2 = c(90, 90),
       bp_meds = c("yes", "yes"),
       statin_meds = c("no", "no"),
