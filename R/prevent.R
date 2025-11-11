@@ -23,7 +23,8 @@
                       diabetes_levels,
                       prevent_type,
                       pred_type,
-                      year){
+                      year,
+                      return_internal_data){
 
   sex = as.character(sex)
   smoke_current = as.character(smoke_current)
@@ -300,6 +301,8 @@
       coef_miss_hba1c * miss_hba1c +
       const
   )
+
+  if(return_internal_data) return(._data)
 
   output <- with(._data, exp(ind_sum) / (1 + exp(ind_sum)))
 

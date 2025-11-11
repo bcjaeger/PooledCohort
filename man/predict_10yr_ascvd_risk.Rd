@@ -38,7 +38,8 @@ predict_10yr_ascvd_risk(
   smoke_current_levels = list(no = "no", yes = "yes"),
   bp_meds_levels = list(no = "no", yes = "yes"),
   statin_meds_levels = list(no = "no", yes = "yes"),
-  diabetes_levels = list(no = "no", yes = "yes")
+  diabetes_levels = list(no = "no", yes = "yes"),
+  return_internal_data = FALSE
 )
 
 predict_10yr_cvd_risk(
@@ -65,7 +66,8 @@ predict_10yr_cvd_risk(
   smoke_current_levels = list(no = "no", yes = "yes"),
   bp_meds_levels = list(no = "no", yes = "yes"),
   statin_meds_levels = list(no = "no", yes = "yes"),
-  diabetes_levels = list(no = "no", yes = "yes")
+  diabetes_levels = list(no = "no", yes = "yes"),
+  return_internal_data = FALSE
 )
 
 predict_10yr_hf_risk(
@@ -92,7 +94,8 @@ predict_10yr_hf_risk(
   smoke_current_levels = list(no = "no", yes = "yes"),
   bp_meds_levels = list(no = "no", yes = "yes"),
   statin_meds_levels = list(no = "no", yes = "yes"),
-  diabetes_levels = list(no = "no", yes = "yes")
+  diabetes_levels = list(no = "no", yes = "yes"),
+  return_internal_data = FALSE
 )
 
 predict_10yr_chd_risk(
@@ -119,7 +122,8 @@ predict_10yr_chd_risk(
   smoke_current_levels = list(no = "no", yes = "yes"),
   bp_meds_levels = list(no = "no", yes = "yes"),
   statin_meds_levels = list(no = "no", yes = "yes"),
-  diabetes_levels = list(no = "no", yes = "yes")
+  diabetes_levels = list(no = "no", yes = "yes"),
+  return_internal_data = FALSE
 )
 
 predict_10yr_stroke_risk(
@@ -146,7 +150,8 @@ predict_10yr_stroke_risk(
   smoke_current_levels = list(no = "no", yes = "yes"),
   bp_meds_levels = list(no = "no", yes = "yes"),
   statin_meds_levels = list(no = "no", yes = "yes"),
-  diabetes_levels = list(no = "no", yes = "yes")
+  diabetes_levels = list(no = "no", yes = "yes"),
+  return_internal_data = FALSE
 )
 
 predict_30yr_ascvd_risk(
@@ -173,7 +178,8 @@ predict_30yr_ascvd_risk(
   smoke_current_levels = list(no = "no", yes = "yes"),
   bp_meds_levels = list(no = "no", yes = "yes"),
   statin_meds_levels = list(no = "no", yes = "yes"),
-  diabetes_levels = list(no = "no", yes = "yes")
+  diabetes_levels = list(no = "no", yes = "yes"),
+  return_internal_data = FALSE
 )
 
 predict_30yr_cvd_risk(
@@ -200,7 +206,8 @@ predict_30yr_cvd_risk(
   smoke_current_levels = list(no = "no", yes = "yes"),
   bp_meds_levels = list(no = "no", yes = "yes"),
   statin_meds_levels = list(no = "no", yes = "yes"),
-  diabetes_levels = list(no = "no", yes = "yes")
+  diabetes_levels = list(no = "no", yes = "yes"),
+  return_internal_data = FALSE
 )
 
 predict_30yr_hf_risk(
@@ -227,7 +234,8 @@ predict_30yr_hf_risk(
   smoke_current_levels = list(no = "no", yes = "yes"),
   bp_meds_levels = list(no = "no", yes = "yes"),
   statin_meds_levels = list(no = "no", yes = "yes"),
-  diabetes_levels = list(no = "no", yes = "yes")
+  diabetes_levels = list(no = "no", yes = "yes"),
+  return_internal_data = FALSE
 )
 
 predict_30yr_chd_risk(
@@ -254,7 +262,8 @@ predict_30yr_chd_risk(
   smoke_current_levels = list(no = "no", yes = "yes"),
   bp_meds_levels = list(no = "no", yes = "yes"),
   statin_meds_levels = list(no = "no", yes = "yes"),
-  diabetes_levels = list(no = "no", yes = "yes")
+  diabetes_levels = list(no = "no", yes = "yes"),
+  return_internal_data = FALSE
 )
 
 predict_30yr_stroke_risk(
@@ -281,7 +290,8 @@ predict_30yr_stroke_risk(
   smoke_current_levels = list(no = "no", yes = "yes"),
   bp_meds_levels = list(no = "no", yes = "yes"),
   statin_meds_levels = list(no = "no", yes = "yes"),
-  diabetes_levels = list(no = "no", yes = "yes")
+  diabetes_levels = list(no = "no", yes = "yes"),
+  return_internal_data = FALSE
 )
 
 predict_5yr_ascvd_risk(
@@ -300,7 +310,8 @@ predict_5yr_ascvd_risk(
   sex_levels = list(female = "female", male = "male"),
   smoke_current_levels = list(no = "no", yes = "yes"),
   bp_meds_levels = list(no = "no", yes = "yes"),
-  diabetes_levels = list(no = "no", yes = "yes")
+  diabetes_levels = list(no = "no", yes = "yes"),
+  return_internal_data = FALSE
 )
 }
 \arguments{
@@ -382,8 +393,8 @@ et al., 2023 are used.}
 }}
 
 \item{override_boundary_errors}{a logical vector of length 1. If \code{FALSE}
-(the default), then \code{predict_10yr_ascvd_risk()} will throw hard errors
-if you give it continuous input values that are outside the bounaries
+(the default), then the \code{predict_risk()} function will throw hard errors
+if you give it continuous input values that are outside the boundaries
 of what the Pooled Cohort risk calculator recommends. If \code{TRUE}, errors
 will not be thrown. Please use with caution.}
 
@@ -419,6 +430,14 @@ values in the character vectors should indicate what values in
 values in the list should be character vectors of any length, and
 values in the character vectors should indicate what values in
 \code{diabetes} belong to the 'no' and 'yes' categories (see examples).}
+
+\item{return_internal_data}{a logical vector of length 1. If \code{FALSE}
+(the default), then the \code{predict_risk()} function will return predicted
+probabilities. If \code{TRUE}, the function will return a data frame that
+contains the internally derived variables and associated regression
+coefficients that are used to compute the predicted probabilities. This
+feature is useful for implementing light modifications to the established
+risk equation.}
 }
 \value{
 a numeric vector with 10-year predicted risk values for ASCVD events.

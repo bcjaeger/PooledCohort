@@ -135,11 +135,18 @@
 #'   - 'full': computes the PREVENT equation using all novel predictors.
 #'
 #' @param override_boundary_errors a logical vector of length 1. If `FALSE`
-#'   (the default), then `predict_10yr_ascvd_risk()` will throw hard errors
-#'   if you give it continuous input values that are outside the bounaries
+#'   (the default), then the `predict_risk()` function will throw hard errors
+#'   if you give it continuous input values that are outside the boundaries
 #'   of what the Pooled Cohort risk calculator recommends. If `TRUE`, errors
 #'   will not be thrown. Please use with caution.
 #'
+#' @param return_internal_data a logical vector of length 1. If `FALSE`
+#'   (the default), then the `predict_risk()` function will return predicted
+#'   probabilities. If `TRUE`, the function will return a data frame that
+#'   contains the internally derived variables and associated regression
+#'   coefficients that are used to compute the predicted probabilities. This
+#'   feature is useful for implementing light modifications to the established
+#'   risk equation.
 #'
 #' @return a numeric vector with 10-year predicted risk values for ASCVD events.
 #'
@@ -281,7 +288,8 @@ predict_10yr_ascvd_risk <- function(
   smoke_current_levels = list(no = 'no', yes = 'yes'),
   bp_meds_levels = list(no = 'no', yes = 'yes'),
   statin_meds_levels = list(no = 'no', yes = 'yes'),
-  diabetes_levels = list(no = 'no', yes = 'yes')
+  diabetes_levels = list(no = 'no', yes = 'yes'),
+  return_internal_data = FALSE
 ) {
 
   ._predict_risk(pred_type = 'ascvd',
@@ -309,7 +317,8 @@ predict_10yr_ascvd_risk <- function(
                  smoke_current_levels = smoke_current_levels,
                  bp_meds_levels = bp_meds_levels,
                  statin_meds_levels = statin_meds_levels,
-                 diabetes_levels = diabetes_levels)
+                 diabetes_levels = diabetes_levels,
+                 return_internal_data = return_internal_data)
 
 }
 
@@ -339,7 +348,8 @@ predict_10yr_cvd_risk <- function(
     smoke_current_levels = list(no = 'no', yes = 'yes'),
     bp_meds_levels = list(no = 'no', yes = 'yes'),
     statin_meds_levels = list(no = 'no', yes = 'yes'),
-    diabetes_levels = list(no = 'no', yes = 'yes')
+    diabetes_levels = list(no = 'no', yes = 'yes'),
+    return_internal_data = FALSE
 ) {
 
   ._predict_risk(pred_type = 'cvd',
@@ -367,7 +377,8 @@ predict_10yr_cvd_risk <- function(
                  smoke_current_levels = smoke_current_levels,
                  bp_meds_levels = bp_meds_levels,
                  statin_meds_levels = statin_meds_levels,
-                 diabetes_levels = diabetes_levels)
+                 diabetes_levels = diabetes_levels,
+                 return_internal_data = return_internal_data)
 
 }
 
@@ -397,7 +408,8 @@ predict_10yr_hf_risk <- function(
     smoke_current_levels = list(no = 'no', yes = 'yes'),
     bp_meds_levels = list(no = 'no', yes = 'yes'),
     statin_meds_levels = list(no = 'no', yes = 'yes'),
-    diabetes_levels = list(no = 'no', yes = 'yes')
+    diabetes_levels = list(no = 'no', yes = 'yes'),
+    return_internal_data = FALSE
 ) {
 
   ._predict_risk(pred_type = 'hf',
@@ -425,7 +437,8 @@ predict_10yr_hf_risk <- function(
                  smoke_current_levels = smoke_current_levels,
                  bp_meds_levels = bp_meds_levels,
                  statin_meds_levels = statin_meds_levels,
-                 diabetes_levels = diabetes_levels)
+                 diabetes_levels = diabetes_levels,
+                 return_internal_data = return_internal_data)
 
 }
 
@@ -455,7 +468,8 @@ predict_10yr_chd_risk <- function(
     smoke_current_levels = list(no = 'no', yes = 'yes'),
     bp_meds_levels = list(no = 'no', yes = 'yes'),
     statin_meds_levels = list(no = 'no', yes = 'yes'),
-    diabetes_levels = list(no = 'no', yes = 'yes')
+    diabetes_levels = list(no = 'no', yes = 'yes'),
+    return_internal_data = FALSE
 ) {
 
   ._predict_risk(pred_type = 'chd',
@@ -483,7 +497,8 @@ predict_10yr_chd_risk <- function(
                  smoke_current_levels = smoke_current_levels,
                  bp_meds_levels = bp_meds_levels,
                  statin_meds_levels = statin_meds_levels,
-                 diabetes_levels = diabetes_levels)
+                 diabetes_levels = diabetes_levels,
+                 return_internal_data = return_internal_data)
 
 }
 
@@ -513,7 +528,8 @@ predict_10yr_stroke_risk <- function(
     smoke_current_levels = list(no = 'no', yes = 'yes'),
     bp_meds_levels = list(no = 'no', yes = 'yes'),
     statin_meds_levels = list(no = 'no', yes = 'yes'),
-    diabetes_levels = list(no = 'no', yes = 'yes')
+    diabetes_levels = list(no = 'no', yes = 'yes'),
+    return_internal_data = FALSE
 ) {
 
   ._predict_risk(pred_type = 'stroke',
@@ -541,7 +557,8 @@ predict_10yr_stroke_risk <- function(
                  smoke_current_levels = smoke_current_levels,
                  bp_meds_levels = bp_meds_levels,
                  statin_meds_levels = statin_meds_levels,
-                 diabetes_levels = diabetes_levels)
+                 diabetes_levels = diabetes_levels,
+                 return_internal_data = return_internal_data)
 
 }
 
@@ -571,7 +588,8 @@ predict_30yr_ascvd_risk <- function(
     smoke_current_levels = list(no = 'no', yes = 'yes'),
     bp_meds_levels = list(no = 'no', yes = 'yes'),
     statin_meds_levels = list(no = 'no', yes = 'yes'),
-    diabetes_levels = list(no = 'no', yes = 'yes')
+    diabetes_levels = list(no = 'no', yes = 'yes'),
+    return_internal_data = FALSE
 ) {
 
   ._predict_risk(pred_type = 'ascvd',
@@ -599,7 +617,8 @@ predict_30yr_ascvd_risk <- function(
                  smoke_current_levels = smoke_current_levels,
                  bp_meds_levels = bp_meds_levels,
                  statin_meds_levels = statin_meds_levels,
-                 diabetes_levels = diabetes_levels)
+                 diabetes_levels = diabetes_levels,
+                 return_internal_data = return_internal_data)
 
 }
 
@@ -629,7 +648,8 @@ predict_30yr_cvd_risk <- function(
     smoke_current_levels = list(no = 'no', yes = 'yes'),
     bp_meds_levels = list(no = 'no', yes = 'yes'),
     statin_meds_levels = list(no = 'no', yes = 'yes'),
-    diabetes_levels = list(no = 'no', yes = 'yes')
+    diabetes_levels = list(no = 'no', yes = 'yes'),
+    return_internal_data = FALSE
 ) {
 
   ._predict_risk(pred_type = 'cvd',
@@ -657,7 +677,8 @@ predict_30yr_cvd_risk <- function(
                  smoke_current_levels = smoke_current_levels,
                  bp_meds_levels = bp_meds_levels,
                  statin_meds_levels = statin_meds_levels,
-                 diabetes_levels = diabetes_levels)
+                 diabetes_levels = diabetes_levels,
+                 return_internal_data = return_internal_data)
 
 }
 
@@ -687,7 +708,8 @@ predict_30yr_hf_risk <- function(
     smoke_current_levels = list(no = 'no', yes = 'yes'),
     bp_meds_levels = list(no = 'no', yes = 'yes'),
     statin_meds_levels = list(no = 'no', yes = 'yes'),
-    diabetes_levels = list(no = 'no', yes = 'yes')
+    diabetes_levels = list(no = 'no', yes = 'yes'),
+    return_internal_data = FALSE
 ) {
 
   ._predict_risk(pred_type = 'hf',
@@ -715,7 +737,8 @@ predict_30yr_hf_risk <- function(
                  smoke_current_levels = smoke_current_levels,
                  bp_meds_levels = bp_meds_levels,
                  statin_meds_levels = statin_meds_levels,
-                 diabetes_levels = diabetes_levels)
+                 diabetes_levels = diabetes_levels,
+                 return_internal_data = return_internal_data)
 
 }
 
@@ -745,7 +768,8 @@ predict_30yr_chd_risk <- function(
     smoke_current_levels = list(no = 'no', yes = 'yes'),
     bp_meds_levels = list(no = 'no', yes = 'yes'),
     statin_meds_levels = list(no = 'no', yes = 'yes'),
-    diabetes_levels = list(no = 'no', yes = 'yes')
+    diabetes_levels = list(no = 'no', yes = 'yes'),
+    return_internal_data = FALSE
 ) {
 
   ._predict_risk(pred_type = 'chd',
@@ -773,7 +797,8 @@ predict_30yr_chd_risk <- function(
                  smoke_current_levels = smoke_current_levels,
                  bp_meds_levels = bp_meds_levels,
                  statin_meds_levels = statin_meds_levels,
-                 diabetes_levels = diabetes_levels)
+                 diabetes_levels = diabetes_levels,
+                 return_internal_data = return_internal_data)
 
 }
 
@@ -803,7 +828,8 @@ predict_30yr_stroke_risk <- function(
     smoke_current_levels = list(no = 'no', yes = 'yes'),
     bp_meds_levels = list(no = 'no', yes = 'yes'),
     statin_meds_levels = list(no = 'no', yes = 'yes'),
-    diabetes_levels = list(no = 'no', yes = 'yes')
+    diabetes_levels = list(no = 'no', yes = 'yes'),
+    return_internal_data = FALSE
 ) {
 
   ._predict_risk(pred_type = 'stroke',
@@ -831,7 +857,8 @@ predict_30yr_stroke_risk <- function(
                  smoke_current_levels = smoke_current_levels,
                  bp_meds_levels = bp_meds_levels,
                  statin_meds_levels = statin_meds_levels,
-                 diabetes_levels = diabetes_levels)
+                 diabetes_levels = diabetes_levels,
+                 return_internal_data = return_internal_data)
 
 }
 
@@ -860,7 +887,8 @@ predict_30yr_stroke_risk <- function(
                            smoke_current_levels,
                            bp_meds_levels,
                            statin_meds_levels,
-                           diabetes_levels){
+                           diabetes_levels,
+                           return_internal_data){
 
   check_input(
     arg_name = 'equation_version',
@@ -904,7 +932,8 @@ predict_30yr_stroke_risk <- function(
       smoke_current_levels = smoke_current_levels,
       bp_meds_levels = bp_meds_levels,
       diabetes_levels = diabetes_levels,
-      year = year
+      year = year,
+      return_internal_data = return_internal_data
     )
 
   } else if (equation_version == "Khan_2023"){
@@ -951,7 +980,8 @@ predict_30yr_stroke_risk <- function(
                         diabetes_levels = diabetes_levels,
                         prevent_type = prevent_type,
                         pred_type = pred_type,
-                        year = year)
+                        year = year,
+                        return_internal_data = return_internal_data)
 
   }
 
@@ -977,7 +1007,8 @@ predict_5yr_ascvd_risk <- function(
   sex_levels = list(female = 'female', male = 'male'),
   smoke_current_levels = list(no = 'no', yes = 'yes'),
   bp_meds_levels = list(no = 'no', yes = 'yes'),
-  diabetes_levels = list(no = 'no', yes = 'yes')
+  diabetes_levels = list(no = 'no', yes = 'yes'),
+  return_internal_data = FALSE
 ) {
 
   check_input(
@@ -1042,7 +1073,8 @@ predict_5yr_ascvd_risk <- function(
   smoke_current_levels,
   bp_meds_levels,
   diabetes_levels,
-  year
+  year,
+  return_internal_data
 ) {
 
   # coerce categorical data to character values ----
@@ -1192,7 +1224,8 @@ predict_5yr_ascvd_risk <- function(
     bp_sys_mmhg = bp_sys_mmhg,
     bp_meds = bp_meds_recode,
     diabetes = diabetes_recode,
-    year = year
+    year = year,
+    return_internal_data = return_internal_data
   )
 
 }
@@ -1206,7 +1239,8 @@ predict_5yr_ascvd_risk <- function(
                             bp_sys_mmhg,
                             bp_meds,
                             diabetes,
-                            year){
+                            year,
+                            return_internal_data){
 
   # transforming data for input into PCR equations ----
   ln_age        <- log(age_years)
@@ -1294,6 +1328,8 @@ predict_5yr_ascvd_risk <- function(
       coef_diabetes * diabetes
   )
 
+  if(return_internal_data) return(._data)
+
   # compute risk using individuals' sum of terms ----
 
   output <- with(._data, 1 - base_surv^exp(ind_sum - coef_mean))
@@ -1313,7 +1349,8 @@ predict_5yr_ascvd_risk <- function(
                        bp_sys_mmhg,
                        bp_meds,
                        diabetes,
-                       year) {
+                       year,
+                       return_internal_data) {
 
   sex_coefs <- data.frame(
     sex = c('female', 'male'),
@@ -1396,6 +1433,8 @@ predict_5yr_ascvd_risk <- function(
       coef_black_x_sbp_x_bp_meds * black_x_sbp_x_bp_meds +
       coef_black_x_sbp_x_age * black_x_sbp_x_age
   )
+
+  if(return_internal_data) return(._data)
 
   output <- with(._data, 1 / (1 + exp(-ind_sum)))
 
