@@ -302,7 +302,11 @@
       const
   )
 
-  if(return_internal_data) return(._data)
+  if(return_internal_data){
+    # lp is the Cox linear predictor (ind_sum without the baseline constant)
+    ._data$lp <- ._data$ind_sum - ._data$const
+    return(._data)
+  }
 
   output <- with(._data, exp(ind_sum) / (1 + exp(ind_sum)))
 
